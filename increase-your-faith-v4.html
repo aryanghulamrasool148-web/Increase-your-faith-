@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Increase Your Faith — Scripture, Quiz &amp; Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Literata:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root, body[data-theme="dark"]{
+    --bg: #0d0e14; --bg2: #171a26; --panel: #1c2032;
+    --parchment: #f2ecdd; --parchment-dim: #cfc7ac;
+    --gold: #d4a73d; --gold-soft: rgba(212,167,61,0.35);
+    --ink: #2a2418; --offwhite: #f2ecdd; --muted: #9490a3;
+    --correct: #6fae7c; --correct-glow: rgba(111,174,124,0.25);
+    --wrong: #c85f5f; --wrong-glow: rgba(200,95,95,0.25);
+    --paper: #ede3c8; --paper-dim: #ddd0a8;
+    --starcolor: rgba(255,255,255,0.8);
+  }
+  body[data-theme="light"]{
+    --bg: #faf6ea; --bg2: #f1e8d0; --panel: #fffdf6;
+    --parchment: #2a2418; --parchment-dim: #4a4128;
+    --gold: #9c6f1e; --gold-soft: rgba(156,111,30,0.28);
+    --ink: #2a2418; --offwhite: #2a2418; --muted: #6b6047;
+    --correct: #3f7a4d; --correct-glow: rgba(63,122,77,0.2);
+    --wrong: #a13d3d; --wrong-glow: rgba(161,61,61,0.18);
+    --paper: #fffaf0; --paper-dim: #f3e8cd;
+    --starcolor: rgba(156,111,30,0.5);
+  }
+  /* 10-color highlighter palette */
+  .hl-yellow{ --hlc: 255,224,89; } .hl-green{ --hlc: 120,224,120; } .hl-pink{ --hlc: 255,140,190; }
+  .hl-blue{ --hlc: 110,180,255; } .hl-orange{ --hlc: 255,158,66; } .hl-purple{ --hlc: 190,130,255; }
+  .hl-red{ --hlc: 255,99,99; } .hl-teal{ --hlc: 80,220,200; } .hl-gold{ --hlc: 224,180,60; } .hl-gray{ --hlc: 190,190,200; }
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,167,61,0.09), transparent 60%),
+      radial-gradient(ellipse 80% 60% at 80% 100%, rgba(212,167,61,0.05), transparent 60%),
+      var(--bg);
+    color: var(--offwhite);
+    font-family: 'Literata', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .shell{ max-width: 860px; margin: 0 auto; padding: 20px 18px 70px; }
+  .shell.rtl{ direction: rtl; }
+  .rtl, .rtl *{ font-family: 'Noto Nastaliq Urdu', 'Literata', serif !important; }
+  .rtl .qtag, .rtl .timernum, .rtl .vref, .rtl .answer-ref, .rtl .statbar, .rtl .vnum{ font-family: 'JetBrains Mono', monospace !important; }
+
+  .settingsrow{ display:flex; justify-content:flex-end; gap:8px; margin-bottom: 14px; flex-wrap:wrap; }
+  .rtl .settingsrow{ justify-content:flex-start; }
+  .pillgroup{ display:flex; gap:2px; background: rgba(255,255,255,0.03); border:1px solid rgba(212,167,61,0.22); border-radius:999px; padding:3px; }
+  .langtoggle, .themetoggle{ display:flex; gap:2px; }
+  .langbtn{ padding: 6px 14px; border-radius: 999px; border: none;
+    background: transparent; color: var(--muted); font-size: 0.76rem; font-family:'JetBrains Mono',monospace; }
+  .langbtn.active{ background: linear-gradient(180deg, var(--gold), #b6872b); color:#1a1200; font-weight:600; }
+  .langbtn:hover:not(.active){ color: var(--parchment); }
+
+  .brand{ text-align:center; margin: 6px 0 14px; }
+  .brand h1{
+    font-family:'Cormorant Garamond', serif; font-weight:700;
+    font-size: clamp(2.2rem, 8vw, 3rem); letter-spacing: 0.09em; margin: 0;
+    color: var(--parchment); text-shadow: 0 0 24px var(--gold-soft);
+  }
+  .rtl .brand h1{ font-family: 'Noto Nastaliq Urdu', serif !important; letter-spacing:0; }
+  .brand p{ margin: 6px 0 0; color: var(--muted); font-size: 0.88rem; }
+  .credit{
+    display:inline-block; margin-top: 12px; padding: 6px 16px; border-radius: 999px;
+    background: linear-gradient(180deg, var(--gold), #b6872b); color:#1a1200;
+    font-family:'JetBrains Mono',monospace !important; font-size: 0.72rem; letter-spacing: 0.05em;
+    font-weight:600; box-shadow: 0 4px 14px rgba(212,167,61,0.3);
+  }
+
+  .topnav{
+    position: sticky; top:0; z-index: 20; display:flex; gap:6px; justify-content:center;
+    flex-wrap:wrap; margin: 18px 0 28px; padding: 8px; background: rgba(18,20,28,0.88);
+    backdrop-filter: blur(6px); border-radius: 14px; border: 1px solid rgba(212,167,61,0.14);
+  }
+  .navtab{
+    padding: 9px 16px; border-radius: 10px; border: none; background: transparent;
+    color: var(--muted); font-size: 0.86rem; font-weight:500; letter-spacing:0.02em;
+  }
+  .navtab.active{ background: linear-gradient(180deg, var(--gold), #b6872b); color:#1a1200; font-weight:600; }
+  .navtab:hover:not(.active){ color: var(--parchment); }
+
+  button{ font-family:inherit; cursor:pointer; }
+  .btn-primary{
+    display:block; width:100%; padding: 16px 20px; border:none; border-radius: 12px;
+    background: linear-gradient(180deg, var(--gold), #b6872b); color: #1a1200;
+    font-weight:600; font-size: 1.05rem; letter-spacing:0.02em;
+    box-shadow: 0 8px 24px rgba(212,167,61,0.22);
+  }
+  .btn-primary:hover{ box-shadow: 0 10px 28px rgba(212,167,61,0.32); }
+  .navtab:focus-visible, .btn-primary:focus-visible, .opt:focus-visible,
+  select:focus-visible, .navbtn:focus-visible, .chip:focus-visible, .reader-verse:focus-visible, .langbtn:focus-visible{
+    outline: 2px solid var(--gold); outline-offset: 2px;
+  }
+
+  .votd{
+    background: linear-gradient(180deg, var(--panel), var(--bg2));
+    border: 1px solid rgba(212,167,61,0.22); border-radius: 18px; padding: 26px 24px;
+    margin-bottom: 26px; text-align:center;
+  }
+  .votd .eyebrow{ font-family:'JetBrains Mono',monospace !important; font-size:0.68rem; letter-spacing:0.16em;
+    text-transform:uppercase; color: var(--gold); margin-bottom:12px; }
+  .votd .vtext{ font-family:'Cormorant Garamond',serif; font-size:1.5rem; line-height:1.45; color: var(--parchment); margin:0 0 12px; }
+  .rtl .votd .vtext{ font-family:'Noto Nastaliq Urdu',serif !important; font-size:1.4rem; line-height:2.1; }
+  .votd .vref{ font-family:'JetBrains Mono',monospace !important; font-size:0.78rem; color: var(--muted); }
+
+  .lead{ text-align:center; color: var(--muted); font-size:0.98rem; line-height:1.6; max-width: 560px; margin: 0 auto 26px; }
+  .cardgrid{ display:grid; gap:12px; margin-bottom: 22px; }
+  .mode-card{
+    background: linear-gradient(180deg, var(--panel), var(--bg2));
+    border: 1px solid rgba(212,167,61,0.18); border-radius: 14px; padding: 18px 20px;
+    display:flex; align-items:center; gap:14px; width:100%; text-align:left; color:inherit;
+  }
+  .rtl .mode-card{ text-align:right; }
+  .mode-card .glyph{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.7rem;
+    color: var(--gold); width: 42px; text-align:center; flex-shrink:0; }
+  .mode-card .txt h3{ margin:0 0 2px; font-family:'Cormorant Garamond',serif; font-size:1.25rem; color: var(--parchment); font-weight:600;}
+  .rtl .mode-card .txt h3{ font-family:'Noto Nastaliq Urdu',serif !important; }
+  .mode-card .txt p{ margin:0; font-size:0.84rem; color:var(--muted); line-height:1.4; }
+  .mode-card:hover{ border-color: rgba(212,167,61,0.4); }
+
+  .statbar{ display:flex; justify-content:center; align-items:center; gap: 22px; margin: 0 0 18px;
+    font-family:'JetBrains Mono', monospace !important; font-size: 0.8rem; color: var(--muted); }
+  .statbar b{ color: var(--parchment); font-size: 0.95rem; }
+
+  .qcard{
+    background: linear-gradient(180deg, var(--paper), var(--paper-dim));
+    color: var(--ink); border-radius: 18px; padding: 30px 30px 26px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4); position: relative; overflow:hidden;
+  }
+  .qcard::before{ content:""; position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(ellipse 140% 60% at 50% -10%, rgba(212,167,61,0.18), transparent 60%); }
+  .timerwrap{ margin: -8px -8px 18px; }
+  .timerbar-bg{ height:6px; border-radius:3px; background: rgba(42,36,24,0.12); overflow:hidden; }
+  .timerbar{ height:100%; background: linear-gradient(90deg, var(--gold), #8a5a1c); transition: width 1s linear, background 0.3s ease; }
+  .timernum{ font-family:'JetBrains Mono',monospace !important; font-size:0.72rem; color:#8a7238; text-align:right; margin-top:4px; }
+  .rtl .timernum{ text-align:left; }
+  .qtag{ font-family:'JetBrains Mono',monospace !important; font-size:0.7rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:#8a7238; margin-bottom: 12px; display:block; }
+  .drop{ font-family:'Cormorant Garamond', serif; font-weight:700; color:#8a5a1c;
+    float:left; font-size: 3.6rem; line-height: 0.78; margin: 4px 10px 0 0; }
+  .rtl .drop{ float:right; margin: 4px 0 0 10px; font-family:'Noto Nastaliq Urdu',serif !important; }
+  .verse-text{ font-size: 1.28rem; line-height:1.65; margin: 0 0 4px; }
+  .rtl .verse-text{ font-size: 1.35rem; line-height:2.1; }
+  .question-text{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.65rem;
+    line-height:1.35; margin: 4px 0 20px; color:#241d10; }
+  .rtl .question-text{ font-family:'Noto Nastaliq Urdu',serif !important; line-height:2; }
+  .ref-tag{ text-align:right; font-family:'JetBrains Mono',monospace !important; font-size:0.8rem;
+    color:#8a7238; letter-spacing:0.04em; margin-top: 8px; }
+  .rtl .ref-tag{ text-align:left; }
+  .options{ display:grid; gap:12px; margin-top: 20px; clear:both; }
+  .opt{ text-align:left; padding: 15px 18px; border-radius:10px; border: 1.5px solid rgba(42,36,24,0.16);
+    background: rgba(255,255,255,0.35); color: var(--ink); font-size: 1.04rem;
+    transition: background 0.12s ease, border-color 0.12s ease; }
+  .rtl .opt{ text-align:right; }
+  .opt:hover:not(:disabled){ background: rgba(255,255,255,0.6); border-color: rgba(42,36,24,0.3); }
+  .opt:disabled{ cursor:default; }
+  .opt.correct{ background: var(--correct-glow); border-color: var(--correct); }
+  .opt.wrong{ background: var(--wrong-glow); border-color: var(--wrong); }
+  .feedback{ margin-top: 18px; padding: 13px 15px; border-radius: 10px; font-size:0.95rem;
+    display:none; align-items:center; gap:8px; }
+  .feedback.show{ display:flex; }
+  .feedback.good{ background: var(--correct-glow); color:#284a30; }
+  .feedback.bad{ background: var(--wrong-glow); color:#4a2222; }
+
+  .loading{ text-align:center; color: var(--muted); padding: 60px 0; font-size:0.92rem;
+    font-family:'JetBrains Mono',monospace !important; letter-spacing:0.04em; }
+  .flame{ display:inline-block; animation: flick 1.6s ease-in-out infinite; }
+  @keyframes flick{ 0%,100%{ opacity:1; transform: scale(1);} 50%{ opacity:0.6; transform: scale(0.92);} }
+  @media (prefers-reduced-motion: reduce){ .flame{ animation:none; } .timerbar{ transition:none; } }
+
+  .reader-controls{ display:flex; gap:10px; margin-top: 4px; flex-wrap:wrap; align-items:center; }
+  select{ background: var(--panel); color: var(--offwhite); border:1px solid rgba(212,167,61,0.25);
+    border-radius:8px; padding: 10px 12px; font-family:inherit; font-size:0.95rem; flex:1; min-width:150px; }
+  .navrow{ display:flex; gap:8px; margin-top:10px; }
+  .navbtn{ flex:1; padding: 11px; border-radius:8px; border:1px solid rgba(212,167,61,0.25);
+    background: var(--panel); color: var(--parchment); font-size:0.86rem; }
+  .navbtn:disabled{ opacity:0.35; cursor:default; }
+  .navbtn:hover:not(:disabled){ border-color: var(--gold); }
+
+  .reader-hint{ text-align:center; color: var(--muted); font-size:0.78rem; margin: 14px 0 4px; }
+
+  .reader-card{
+    background: linear-gradient(180deg, var(--paper), var(--paper-dim));
+    color: var(--ink); border-radius: 18px; padding: 34px 36px; margin-top: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+  .reader-title{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.9rem;
+    margin: 0 0 20px; color:#3a2f14; }
+  .rtl .reader-title{ font-family:'Noto Nastaliq Urdu',serif !important; }
+  .reader-verse{ font-size: 1.18rem; line-height:1.85; margin: 0 0 4px; padding: 6px 10px; border-radius: 8px;
+    cursor: pointer; transition: background 0.15s ease; }
+  .rtl .reader-verse{ font-size: 1.3rem; line-height: 2.3; }
+  .reader-verse:hover{ background: rgba(138,90,28,0.08); }
+  .reader-verse.highlighted{ background: rgba(var(--hlc), 0.55); position:relative; }
+  .reader-verse.highlighted.neon{ background: rgba(var(--hlc), 0.4); box-shadow: 0 0 14px 2px rgba(var(--hlc), 0.9), inset 0 0 8px rgba(var(--hlc), 0.5); }
+  .reader-verse.sweep{ animation: hlReveal 0.42s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes hlReveal{ 0%{ background-color: transparent; transform: scale(1); box-shadow:none; }
+    45%{ transform: scale(1.02); } 100%{ transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce){ .reader-verse.sweep{ animation:none; } }
+  .reader-verse .shareicon{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; margin-left:8px;
+    border-radius:50%; background: rgba(42,36,24,0.12); color:#5a4a20; font-size:0.72rem; vertical-align:middle; cursor:pointer; }
+  .reader-verse .shareicon:hover{ background: rgba(42,36,24,0.22); }
+  .reader-verse .vnum{ font-family:'JetBrains Mono',monospace !important; font-size:0.72rem; color:#8a5a1c; font-weight:600;
+    vertical-align: super; margin-right: 5px; }
+  .rtl .reader-verse .vnum{ margin-right:0; margin-left:5px; }
+
+  .askbox{ display:flex; gap:10px; margin-bottom: 14px; }
+  .askbox input{
+    flex:1; padding: 14px 16px; border-radius: 12px; border:1px solid rgba(212,167,61,0.25);
+    background: var(--panel); color: var(--offwhite); font-family:inherit; font-size: 1rem;
+  }
+  .askbox input::placeholder{ color: var(--muted); }
+  .askbox button{ padding: 0 22px; border:none; border-radius: 12px;
+    background: linear-gradient(180deg, var(--gold), #b6872b); color:#1a1200; font-weight:600; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 22px; }
+  .chip{ padding: 7px 14px; border-radius: 999px; border:1px solid rgba(212,167,61,0.3);
+    background: transparent; color: var(--muted); font-size:0.82rem; }
+  .chip:hover{ color: var(--parchment); border-color: var(--gold); }
+  .answer-card{
+    background: linear-gradient(180deg, var(--paper), var(--paper-dim));
+    color: var(--ink); border-radius: 18px; padding: 30px 32px; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+  .answer-q{ font-family:'JetBrains Mono',monospace !important; font-size:0.74rem; color:#8a7238; margin-bottom:14px;
+    text-transform:uppercase; letter-spacing:0.08em; }
+  .rtl .answer-q{ text-transform:none; }
+  .answer-text{ font-family:'Cormorant Garamond',serif; font-size:1.5rem; line-height:1.5; margin:0 0 14px; color:#241d10; }
+  .rtl .answer-text{ font-family:'Noto Nastaliq Urdu',serif !important; line-height:2.1; }
+  .answer-ref{ font-family:'JetBrains Mono',monospace !important; font-size:0.85rem; color:#8a5a1c; text-align:right; }
+  .rtl .answer-ref{ text-align:left; }
+  .answer-alt{ margin-top:18px; padding-top:16px; border-top:1px dashed rgba(42,36,24,0.2); font-size:0.85rem; color:#6b5c3a; }
+
+  .footer-note{ text-align:center; color: var(--muted); font-size:0.72rem; margin-top: 34px; line-height:1.7; }
+  .footer-note a{ color: var(--gold); text-decoration:none; }
+
+  /* Theme toggle */
+  /* theme toggle styling now shares .langtoggle/.themetoggle rules defined above */
+
+  /* HOLY homepage */
+  .holywrap{ position:relative; border-radius:22px; overflow:hidden; padding: 40px 24px 30px; margin-bottom:24px;
+    background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(212,167,61,0.16), transparent 65%), linear-gradient(180deg, var(--bg2), var(--bg));
+    border:1px solid rgba(212,167,61,0.22); text-align:center; }
+  .stars{ position:absolute; inset:0; pointer-events:none; opacity:0.7; }
+  .star{ position:absolute; width:2px; height:2px; border-radius:50%; background: var(--starcolor); animation: twinkle 3.5s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{ opacity:0.15; transform:scale(1);} 50%{ opacity:1; transform:scale(1.6);} }
+  .holy-symbol{ font-size:1.6rem; color: var(--gold); margin-bottom:10px; text-shadow: 0 0 18px var(--gold-soft); position:relative; z-index:1; }
+  .holy-divider{ display:flex; align-items:center; gap:12px; justify-content:center; margin: 18px auto 0; max-width:220px; position:relative; z-index:1; }
+  .holy-divider::before, .holy-divider::after{ content:""; flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft)); }
+  .holy-divider::after{ background: linear-gradient(90deg, var(--gold-soft), transparent); }
+  .holy-divider span{ color: var(--gold); font-size:0.9rem; }
+
+  /* Reader top bar with note FAB */
+  .reader-topbar{ display:flex; justify-content:flex-end; margin-bottom:8px; position:relative; }
+  .notefab{ display:flex; align-items:center; gap:8px; padding: 9px 16px; border-radius: 999px; border:1px solid rgba(212,167,61,0.35);
+    background: linear-gradient(180deg, var(--panel), var(--bg2)); color: var(--parchment); font-size:0.85rem; font-weight:600;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+  .notefab:hover{ border-color: var(--gold); }
+  .notefab .pencap{ width:14px; height:14px; border-radius:3px; background: linear-gradient(145deg, rgba(var(--hlc),1), rgba(var(--hlc),0.6));
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), inset 0 -2px 3px rgba(0,0,0,0.25); }
+
+  /* 3D highlighter popover */
+  .hlpanel{ position:absolute; top: 46px; right:0; z-index:30; width: min(320px, 90vw); padding: 20px 18px 18px;
+    border-radius: 18px; background: linear-gradient(180deg, var(--panel), var(--bg2)); border:1px solid rgba(212,167,61,0.3);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+  .rtl .hlpanel{ right:auto; left:0; }
+  .hlpanel-title{ font-family:'Cormorant Garamond',serif; font-size:1.15rem; color: var(--parchment); margin:0 0 4px; }
+  .rtl .hlpanel-title{ font-family:'Noto Nastaliq Urdu',serif !important; }
+  .hlpanel-sub{ font-size:0.76rem; color: var(--muted); margin-bottom:14px; }
+
+  /* Modal overlay version (triggered by tapping a verse) */
+  .notemodal-overlay{ position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.55);
+    display:flex; align-items:center; justify-content:center; padding:20px; }
+  .notemodal{ width:min(340px,92vw); max-height:88vh; overflow-y:auto; padding:22px 20px 20px;
+    border-radius:20px; background: linear-gradient(180deg, var(--panel), var(--bg2)); border:1px solid rgba(212,167,61,0.35);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6); }
+  .notemodal-preview{ font-size:0.86rem; color: var(--muted); background: rgba(255,255,255,0.04); border-radius:10px;
+    padding:10px 12px; margin-bottom:14px; line-height:1.5; max-height:90px; overflow-y:auto; }
+  .notemodal-actions{ display:grid; gap:8px; margin-top:6px; }
+  .notemodal-actions .removebtn{ padding:10px; border-radius:10px; border:1px solid rgba(200,95,95,0.4);
+    background:transparent; color:#d98888; font-size:0.85rem; }
+  .notemodal-actions .removebtn:hover{ background: rgba(200,95,95,0.12); }
+
+  /* the literal 3D highlighter pen */
+  .pen3d{ display:flex; justify-content:center; margin: 6px 0 18px; perspective: 400px; }
+  .pen3d .body{ width: 46px; height: 130px; position:relative; transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d;
+    transition: background 0.25s ease; }
+  .pen3d .barrel{ position:absolute; top:26px; left:0; width:100%; height:82px; border-radius: 8px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.35) 0%, rgba(var(--pen,212,167,61),1) 18%, rgba(var(--pen,212,167,61),0.85) 55%, rgba(0,0,0,0.25) 100%);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.45), inset 0 2px 2px rgba(255,255,255,0.5); }
+  .pen3d .barrel::after{ content:""; position:absolute; top:8px; bottom:8px; left:8px; width:6px; border-radius:4px; background: rgba(255,255,255,0.55); filter: blur(1px); }
+  .pen3d .cap{ position:absolute; top:0; left:6px; width: 34px; height: 34px; border-radius: 6px 6px 3px 3px;
+    background: linear-gradient(160deg, rgba(var(--pen,212,167,61),1), rgba(var(--pen,212,167,61),0.6));
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 2px 2px rgba(255,255,255,0.5); }
+  .pen3d .tip{ position:absolute; bottom:-14px; left:14px; width:0; height:0;
+    border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 16px solid rgba(var(--pen,212,167,61),0.9);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35)); }
+  .pen3d.neonpen .barrel, .pen3d.neonpen .cap{ box-shadow: 0 0 22px 4px rgba(var(--pen,212,167,61),0.85), inset 0 2px 2px rgba(255,255,255,0.5); }
+
+  .hlcolors{ display:grid; grid-template-columns: repeat(5,1fr); gap:10px; margin-bottom: 16px; }
+  .hlswatch{ width:100%; aspect-ratio:1; border-radius:50%; border:2px solid rgba(255,255,255,0.15); position:relative;
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.75), rgba(var(--hlc),1) 45%, rgba(var(--hlc),0.7) 100%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35); }
+  .hlswatch.active{ border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,167,61,0.35), 0 4px 10px rgba(0,0,0,0.35); }
+
+  .neonrow{ display:flex; align-items:center; justify-content:space-between; padding-top:12px; border-top:1px dashed rgba(212,167,61,0.2); }
+  .neonrow span{ font-size:0.86rem; color: var(--parchment); }
+  .switch{ position:relative; width:42px; height:24px; border-radius:999px; background: rgba(255,255,255,0.15); border:1px solid rgba(212,167,61,0.3); }
+  .switch .knob{ position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background: var(--gold); transition: left 0.18s ease; }
+  .switch.on .knob{ left:20px; }
+  .rtl .switch .knob{ right:2px; left:auto; }
+  .rtl .switch.on .knob{ right:20px; left:auto; }
+  .hlclose{ display:block; width:100%; margin-top:14px; padding:9px; border-radius:10px; border:1px solid rgba(212,167,61,0.25);
+    background:transparent; color: var(--muted); font-size:0.82rem; }
+  .hlclose:hover{ color: var(--parchment); }
+
+  /* last read strip */
+  .lastread{ margin-top: 14px; padding: 12px 16px; border-radius: 12px; background: var(--panel); border:1px solid rgba(212,167,61,0.18);
+    display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:0.82rem; color: var(--muted); flex-wrap:wrap; }
+  .lastread b{ color: var(--parchment); }
+  .lastread button{ padding:6px 14px; border-radius:8px; border:none; background: linear-gradient(180deg, var(--gold), #b6872b); color:#1a1200; font-size:0.78rem; font-weight:600; }
+
+  /* Saints / History — list cards */
+  .saint-card{
+    background: linear-gradient(180deg, var(--panel), var(--bg2)); border:1px solid rgba(212,167,61,0.18);
+    border-radius: 14px; padding: 16px 18px; margin-bottom:10px; width:100%; text-align:left;
+    display:flex; justify-content:space-between; align-items:center; gap:10px; color:inherit;
+  }
+  .rtl .saint-card{ text-align:right; }
+  .saint-card:hover{ border-color: rgba(212,167,61,0.4); }
+  .saint-card .sname{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.1rem; color: var(--parchment); }
+  .rtl .saint-card .sname{ font-family:'Noto Nastaliq Urdu',serif !important; }
+  .saint-card .stag{ font-family:'JetBrains Mono',monospace !important; font-size:0.68rem; color: var(--gold); white-space:nowrap; }
+  .saint-card .sarrow{ color: var(--muted); font-size:1rem; }
+
+  /* Saint detail — 3-page pager */
+  .saint-detail-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px; }
+  .saint-detail-head h2{ font-family:'Cormorant Garamond',serif; font-size:1.7rem; color: var(--parchment); margin:0; }
+  .rtl .saint-detail-head h2{ font-family:'Noto Nastaliq Urdu',serif !important; }
+  .saint-detail-head .stag{ font-family:'JetBrains Mono',monospace !important; font-size:0.72rem; color: var(--gold); white-space:nowrap; margin-top:6px; }
+  .saint-dots{ display:flex; gap:8px; justify-content:center; margin: 14px 0; }
+  .saint-dot{ width:8px; height:8px; border-radius:50%; background: rgba(212,167,61,0.25); border:none; padding:0; }
+  .saint-dot.active{ background: var(--gold); }
+  .saint-page{ background: linear-gradient(180deg, var(--paper), var(--paper-dim)); color: var(--ink); border-radius:16px;
+    padding: 26px 26px; box-shadow: 0 18px 44px rgba(0,0,0,0.35); min-height: 220px; }
+  .saint-page h3{ font-family:'Cormorant Garamond',serif; font-size:1.3rem; margin:0 0 12px; color:#3a2f14; }
+  .rtl .saint-page h3{ font-family:'Noto Nastaliq Urdu',serif !important; }
+  .saint-page p{ font-size:1.02rem; line-height:1.75; margin:0; }
+  .rtl .saint-page p{ font-size:1.12rem; line-height:2.1; }
+  .saint-pagernav{ display:flex; gap:10px; margin-top:14px; }
+
+  @media (max-width: 480px){
+    .mode-card{ padding: 14px 15px; }
+    .qcard{ padding: 22px 18px 20px; }
+    .reader-card{ padding: 22px 18px; }
+    .answer-card{ padding: 22px 18px; }
+    .askbox{ flex-direction:column; }
+    .holywrap{ padding: 30px 16px 24px; }
+    .hlpanel{ width: min(300px, 88vw); }
+  }
+</style>
+</head>
+<body data-theme="dark">
+<div class="shell" id="shell">
+
+  <div class="settingsrow">
+    <div class="pillgroup langtoggle" id="langtoggle">
+      <button class="langbtn" data-lang="en">EN</button>
+      <button class="langbtn" data-lang="ur">اردو</button>
+    </div>
+    <div class="pillgroup themetoggle" id="themetoggle">
+      <button class="langbtn themebtn" data-theme="dark" title="Midnight theme">🌙</button>
+      <button class="langbtn themebtn" data-theme="light" title="Sanctuary theme">☀️</button>
+    </div>
+  </div>
+
+  <div class="brand" id="brand"></div>
+
+  <nav class="topnav" id="topnav">
+    <button class="navtab" data-tab="home"></button>
+    <button class="navtab" data-tab="quiz"></button>
+    <button class="navtab" data-tab="bible"></button>
+    <button class="navtab" data-tab="quran"></button>
+    <button class="navtab" data-tab="ask"></button>
+    <button class="navtab" data-tab="saints"></button>
+  </nav>
+
+  <div id="page"></div>
+
+  <div class="footer-note" id="footerNote"></div>
+</div>
+
+<script>
+(function(){
+
+  var BOOKS = {
+    "Genesis":50,"Exodus":40,"Leviticus":27,"Numbers":36,"Deuteronomy":34,
+    "Joshua":24,"Judges":21,"Ruth":4,"1 Samuel":31,"2 Samuel":24,
+    "1 Kings":22,"2 Kings":25,"1 Chronicles":29,"2 Chronicles":36,"Ezra":10,
+    "Nehemiah":13,"Esther":10,"Job":42,"Psalms":150,"Proverbs":31,
+    "Ecclesiastes":12,"Song of Solomon":8,"Isaiah":66,"Jeremiah":52,"Lamentations":5,
+    "Ezekiel":48,"Daniel":12,"Hosea":14,"Joel":3,"Amos":9,
+    "Obadiah":1,"Jonah":4,"Micah":7,"Nahum":3,"Habakkuk":3,
+    "Zephaniah":3,"Haggai":2,"Zechariah":14,"Malachi":4,
+    "Matthew":28,"Mark":16,"Luke":24,"John":21,"Acts":28,
+    "Romans":16,"1 Corinthians":16,"2 Corinthians":13,"Galatians":6,"Ephesians":6,
+    "Philippians":4,"Colossians":4,"1 Thessalonians":5,"2 Thessalonians":3,"1 Timothy":6,
+    "2 Timothy":4,"Titus":3,"Philemon":1,"Hebrews":13,"James":5,
+    "1 Peter":5,"2 Peter":3,"1 John":5,"2 John":1,"3 John":1,
+    "Jude":1,"Revelation":22
+  };
+  var BOOK_NAMES = Object.keys(BOOKS);
+
+  var BOOK_SLUGS = {
+    "Genesis":"genesis","Exodus":"exodus","Leviticus":"leviticus","Numbers":"numbers","Deuteronomy":"deuteronomy",
+    "Joshua":"joshua","Judges":"judges","Ruth":"ruth","1 Samuel":"1-samuel","2 Samuel":"2-samuel",
+    "1 Kings":"1-kings","2 Kings":"2-kings","1 Chronicles":"1-chronicles","2 Chronicles":"2-chronicles","Ezra":"ezra",
+    "Nehemiah":"nehemiah","Esther":"esther","Job":"job","Psalms":"psalms","Proverbs":"proverbs",
+    "Ecclesiastes":"ecclesiastes","Song of Solomon":"song-of-solomon","Isaiah":"isaiah","Jeremiah":"jeremiah","Lamentations":"lamentations",
+    "Ezekiel":"ezekiel","Daniel":"daniel","Hosea":"hosea","Joel":"joel","Amos":"amos",
+    "Obadiah":"obadiah","Jonah":"jonah","Micah":"micah","Nahum":"nahum","Habakkuk":"habakkuk",
+    "Zephaniah":"zephaniah","Haggai":"haggai","Zechariah":"zechariah","Malachi":"malachi",
+    "Matthew":"matthew","Mark":"mark","Luke":"luke","John":"john","Acts":"acts",
+    "Romans":"romans","1 Corinthians":"1-corinthians","2 Corinthians":"2-corinthians","Galatians":"galatians","Ephesians":"ephesians",
+    "Philippians":"philippians","Colossians":"colossians","1 Thessalonians":"1-thessalonians","2 Thessalonians":"2-thessalonians","1 Timothy":"1-timothy",
+    "2 Timothy":"2-timothy","Titus":"titus","Philemon":"philemon","Hebrews":"hebrews","James":"james",
+    "1 Peter":"1-peter","2 Peter":"2-peter","1 John":"1-john","2 John":"2-john","3 John":"3-john",
+    "Jude":"jude","Revelation":"revelation"
+  };
+
+  var BOOK_NAMES_UR = {
+    "Genesis":"پیدائش","Exodus":"خروج","Leviticus":"احبار","Numbers":"گنتی","Deuteronomy":"استثنا",
+    "Joshua":"یشوع","Judges":"قضاۃ","Ruth":"روت","1 Samuel":"1-سموئیل","2 Samuel":"2-سموئیل",
+    "1 Kings":"1-سلاطین","2 Kings":"2-سلاطین","1 Chronicles":"1-تواریخ","2 Chronicles":"2-تواریخ","Ezra":"عزرا",
+    "Nehemiah":"نحمیاہ","Esther":"آستر","Job":"ایوب","Psalms":"زبور","Proverbs":"امثال",
+    "Ecclesiastes":"واعظ","Song of Solomon":"غزل الغزلات","Isaiah":"یسعیاہ","Jeremiah":"یرمیاہ","Lamentations":"نوحہ",
+    "Ezekiel":"حزقی ایل","Daniel":"دانی ایل","Hosea":"ہوسیع","Joel":"یوایل","Amos":"عاموس",
+    "Obadiah":"عوبدیاہ","Jonah":"یونس","Micah":"میکاہ","Nahum":"ناحوم","Habakkuk":"حبقوق",
+    "Zephaniah":"صفنیاہ","Haggai":"حجی","Zechariah":"زکریاہ","Malachi":"ملاکی",
+    "Matthew":"متی","Mark":"مرقس","Luke":"لوقا","John":"یوحنا","Acts":"اعمال",
+    "Romans":"رومیوں","1 Corinthians":"1-کرنتھیوں","2 Corinthians":"2-کرنتھیوں","Galatians":"گلتیوں","Ephesians":"افسیوں",
+    "Philippians":"فلپیوں","Colossians":"کلسیوں","1 Thessalonians":"1-تھسلنیکیوں","2 Thessalonians":"2-تھسلنیکیوں","1 Timothy":"1-تیمتھیس",
+    "2 Timothy":"2-تیمتھیس","Titus":"طط","Philemon":"فلیمون","Hebrews":"عبرانیوں","James":"یعقوب",
+    "1 Peter":"1-پطرس","2 Peter":"2-پطرس","1 John":"1-یوحنا","2 John":"2-یوحنا","3 John":"3-یوحنا",
+    "Jude":"یہوداہ","Revelation":"مکاشفہ"
+  };
+
+  var SURAHS = [
+    "Al-Fatihah","Al-Baqarah","Aal-e-Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal",
+    "At-Tawbah","Yunus","Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf",
+    "Maryam","Ta-Ha","Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan","Ash-Shu'ara","An-Naml",
+    "Al-Qasas","Al-Ankabut","Ar-Rum","Luqman","As-Sajda","Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat",
+    "Sad","Az-Zumar","Ghafir","Fussilat","Ash-Shura","Az-Zukhruf","Ad-Dukhan","Al-Jathiya","Al-Ahqaf",
+    "Muhammad","Al-Fath","Al-Hujurat","Qaf","Adh-Dhariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman",
+    "Al-Waqi'a","Al-Hadid","Al-Mujadila","Al-Hashr","Al-Mumtahina","As-Saff","Al-Jumu'a","Al-Munafiqun",
+    "At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haaqqa","Al-Ma'arij","Nuh","Al-Jinn",
+    "Al-Muzzammil","Al-Muddaththir","Al-Qiyama","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","Abasa",
+    "At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Inshiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghashiya",
+    "Al-Fajr","Al-Balad","Ash-Shams","Al-Layl","Ad-Duha","Ash-Sharh","At-Tin","Al-Alaq","Al-Qadr",
+    "Al-Bayyina","Az-Zalzala","Al-Adiyat","Al-Qari'a","At-Takathur","Al-Asr","Al-Humaza","Al-Fil",
+    "Quraysh","Al-Ma'un","Al-Kawthar","Al-Kafirun","An-Nasr","Al-Masad","Al-Ikhlas","Al-Falaq","An-Nas"
+  ];
+
+  var WORD_POOL = {
+    en: ["faith","love","grace","mercy","spirit","glory","kingdom","righteousness","salvation","covenant",
+      "prophet","disciple","temple","wilderness","shepherd","light","truth","peace","joy","wisdom",
+      "redeemer","messiah","angel","heaven","water","bread","vine","lamb","cross","resurrection",
+      "prayer","blessing","judgment","holy","eternal","servant","sin","comfort","strength"],
+    ur: ["ایمان","محبت","فضل","رحم","روح","جلال","بادشاہت","راستبازی","نجات","عہد",
+      "نبی","شاگرد","ہیکل","بیابان","چرواہا","نور","سچائی","سلامتی","خوشی","حکمت",
+      "نجات دہندہ","مسیح","فرشتہ","آسمان","پانی","روٹی","تاک","برّہ","صلیب","قیامت",
+      "دعا","برکت","عدالت","مقدس","ابدی","خادم","گناہ","تسلی","طاقت"]
+  };
+
+  var TRIVIA_EN = [
+    ["Who was thrown into a den of lions for continuing to pray?", ["Daniel","Joseph","Elijah","Jeremiah"], 0],
+    ["About how many days and nights did it rain during the flood?", ["7","40","70","100"], 1],
+    ["What was the name of Abraham's son born to Sarah in her old age?", ["Ishmael","Isaac","Jacob","Esau"], 1],
+    ["Who led the Israelites out of slavery in Egypt?", ["Moses","Joshua","Aaron","Samuel"], 0],
+    ["What sea did Moses part so the Israelites could cross?", ["Dead Sea","Sea of Galilee","Red Sea","Mediterranean"], 2],
+    ["Who succeeded Moses as leader of Israel?", ["Caleb","Joshua","Gideon","Samuel"], 1],
+    ["Which judge of Israel was famous for his great strength and long hair?", ["Samson","Gideon","Ehud","Barak"], 0],
+    ["Which king of Israel had an affair with Bathsheba?", ["Saul","Solomon","David","Rehoboam"], 2],
+    ["Who succeeded David as king of Israel?", ["Solomon","Absalom","Nathan","Jeroboam"], 0],
+    ["What did God grant Solomon when he asked for it in a dream?", ["Riches","Wisdom","Long life","Victory in war"], 1],
+    ["Who was swallowed by a great fish after fleeing from God?", ["Jonah","Elijah","Amos","Micah"], 0],
+    ["Which prophet was taken up to heaven in a whirlwind?", ["Elisha","Elijah","Isaiah","Ezekiel"], 1],
+    ["Traditionally, how many plagues did God send upon Egypt?", ["7","9","10","12"], 2],
+    ["Who betrayed Jesus for thirty pieces of silver?", ["Peter","Thomas","Judas Iscariot","Matthew"], 2],
+    ["In what town was Jesus born?", ["Nazareth","Jerusalem","Bethlehem","Capernaum"], 2],
+    ["How many disciples did Jesus choose as his closest followers?", ["7","10","12","70"], 2],
+    ["Who baptized Jesus in the Jordan River?", ["Peter","John the Baptist","Andrew","Philip"], 1],
+    ["Where did Jesus turn water into wine?", ["A wedding in Cana","The temple in Jerusalem","A feast in Capernaum","The Sea of Galilee"], 0],
+    ["Who denied knowing Jesus three times on the night of his arrest?", ["Peter","John","James","Thomas"], 0],
+    ["Who was struck blind on the road to Damascus and later became a great apostle?", ["Barnabas","Saul (Paul)","Silas","Timothy"], 1],
+    ["What is the last book of the New Testament?", ["Jude","Acts","Revelation","Hebrews"], 2],
+    ["How many books are in the New Testament?", ["24","27","31","39"], 1],
+    ["How many books are in the Protestant Old Testament?", ["36","39","42","46"], 1],
+    ["Which apostle wrote most of the New Testament's letters?", ["Peter","John","Paul","James"], 2],
+    ["What was the garden where Adam and Eve lived called?", ["Gethsemane","Eden","Canaan","Zion"], 1],
+    ["Who was the first murder victim in the Bible?", ["Cain","Abel","Seth","Enoch"], 1],
+    ["The Tower of Babel was being built in which city?", ["Ur","Babel","Nineveh","Sodom"], 1],
+    ["Which of Jacob's sons was sold into slavery by his brothers?", ["Reuben","Benjamin","Joseph","Judah"], 2],
+    ["Joseph rose to power in which country by interpreting dreams?", ["Babylon","Egypt","Persia","Assyria"], 1],
+    ["On what mountain did Moses receive the Ten Commandments?", ["Mount Sinai","Mount Carmel","Mount Nebo","Mount Ararat"], 0],
+    ["Who was thrown into a fiery furnace along with Shadrach and Meshach?", ["Abednego","Belteshazzar","Nebuchadnezzar","Mordecai"], 0],
+    ["Which Roman governor authorized Jesus' crucifixion?", ["Herod","Caiaphas","Pontius Pilate","Felix"], 2],
+    ["What event marks the dramatic coming of the Holy Spirit upon the apostles?", ["The Transfiguration","Pentecost","The Ascension","Passover"], 1],
+    ["About how many years did the Israelites wander in the wilderness?", ["10","20","40","70"], 2],
+    ["Who was the mother of Jesus?", ["Elizabeth","Martha","Mary","Anna"], 2],
+    ["What was Zacchaeus' occupation before meeting Jesus?", ["Fisherman","Tax collector","Shepherd","Soldier"], 1],
+    ["Which apostle wrote the book of Revelation while exiled on Patmos?", ["Peter","John","Paul","Andrew"], 1],
+    ["Which Gospel records Jesus weeping at the tomb of his friend Lazarus?", ["Matthew","Mark","Luke","John"], 3],
+    ["Who was the wife of Abraham and mother of Isaac?", ["Rebekah","Rachel","Sarah","Leah"], 2],
+    ["Who led the Israelites in a famous battle where the walls of Jericho fell?", ["Moses","Joshua","Gideon","Samuel"], 1]
+  ];
+
+  var TRIVIA_UR = [
+    ["کس کو دعا کرتے رہنے کی وجہ سے شیروں کے غار میں ڈالا گیا؟", ["دانی ایل","یوسف","الیاس","یرمیاہ"], 0],
+    ["طوفان کے دوران تقریباً کتنے دن اور رات بارش ہوئی؟", ["7","40","70","100"], 1],
+    ["ابراہیم کے اُس بیٹے کا نام کیا تھا جو سارہ سے بڑھاپے میں پیدا ہوا؟", ["اسماعیل","اضحاق","یعقوب","عیسو"], 1],
+    ["بنی اسرائیل کو مصر کی غلامی سے کون نکال کر لایا؟", ["موسیٰ","یشوع","ہارون","سموئیل"], 0],
+    ["موسیٰ نے کون سا سمندر عبور کرنے کے لیے دو حصوں میں تقسیم کیا؟", ["بحیرہ مردار","بحیرہ گلیل","بحرِ قلزم","بحیرہ روم"], 2],
+    ["موسیٰ کے بعد اسرائیل کا رہنما کون بنا؟", ["کالب","یشوع","جدعون","سموئیل"], 1],
+    ["اسرائیل کا کون سا قاضی اپنی زبردست طاقت اور لمبے بالوں کے لیے مشہور تھا؟", ["سمسون","جدعون","اہود","براق"], 0],
+    ["اسرائیل کے کس بادشاہ نے بت شبع کے ساتھ ناجائز تعلق رکھا؟", ["ساؤل","سلیمان","داؤد","رحبعام"], 2],
+    ["داؤد کے بعد اسرائیل کا بادشاہ کون بنا؟", ["سلیمان","ابی سلوم","ناتن","یربعام"], 0],
+    ["خواب میں مانگنے پر خدا نے سلیمان کو کیا عطا کیا؟", ["دولت","حکمت","لمبی زندگی","جنگ میں فتح"], 1],
+    ["خدا سے بھاگنے کی وجہ سے کس کو ایک بڑی مچھلی نے نگل لیا؟", ["یونس","الیاس","عاموس","میکاہ"], 0],
+    ["کس نبی کو آندھی میں آسمان پر اٹھا لیا گیا؟", ["الیشع","الیاس","یسعیاہ","حزقی ایل"], 1],
+    ["روایت کے مطابق خدا نے مصر پر کتنی آفتیں بھیجیں؟", ["7","9","10","12"], 2],
+    ["کس نے تیس چاندی کے سکوں کے عوض عیسیٰ کو دھوکہ دیا؟", ["پطرس","توما","یہوداہ اسکریوتی","متی"], 2],
+    ["عیسیٰ کس شہر میں پیدا ہوئے؟", ["ناصرت","یروشلم","بیت لحم","کفرنحوم"], 2],
+    ["عیسیٰ نے اپنے قریبی پیروکاروں کے طور پر کتنے شاگرد چنے؟", ["7","10","12","70"], 2],
+    ["دریائے یردن میں عیسیٰ کو کس نے بپتسمہ دیا؟", ["پطرس","یوحنا بپتسمہ دینے والا","اندریاس","فلپس"], 1],
+    ["عیسیٰ نے پانی کو مے میں کہاں تبدیل کیا؟", ["قانا کی ایک شادی میں","یروشلم کی ہیکل میں","کفرنحوم کی ایک ضیافت میں","بحیرہ گلیل پر"], 0],
+    ["گرفتاری کی رات کس نے تین بار عیسیٰ کو جاننے سے انکار کیا؟", ["پطرس","یوحنا","یعقوب","توما"], 0],
+    ["دمشق کی راہ میں کون اندھا ہو گیا اور بعد میں عظیم رسول بنا؟", ["برنباس","ساؤل (پولس)","سیلاس","تیمتھیس"], 1],
+    ["نئے عہد نامہ کی آخری کتاب کون سی ہے؟", ["یہوداہ","اعمال","مکاشفہ","عبرانیوں"], 2],
+    ["نئے عہد نامہ میں کتنی کتابیں ہیں؟", ["24","27","31","39"], 1],
+    ["پروٹسٹنٹ پرانے عہد نامہ میں کتنی کتابیں ہیں؟", ["36","39","42","46"], 1],
+    ["نئے عہد نامہ کے زیادہ تر خط کس رسول نے لکھے؟", ["پطرس","یوحنا","پولس","یعقوب"], 2],
+    ["آدم اور حوا جس باغ میں رہتے تھے اس کا نام کیا تھا؟", ["گتسمنی","عدن","کنعان","صیون"], 1],
+    ["بائبل میں پہلا قتل کس کا ہوا؟", ["قائن","ہابل","سیت","حنوک"], 1],
+    ["بابل کا مینار کس شہر میں بنایا جا رہا تھا؟", ["اُور","بابل","نینوہ","سدوم"], 1],
+    ["یعقوب کے کس بیٹے کو اس کے بھائیوں نے غلامی میں بیچ دیا؟", ["روبن","بن یمین","یوسف","یہوداہ"], 2],
+    ["یوسف خوابوں کی تعبیر کے ذریعے کس ملک میں اقتدار تک پہنچا؟", ["بابل","مصر","فارس","اسور"], 1],
+    ["موسیٰ کو دس احکام کس پہاڑ پر ملے؟", ["کوہ سینا","کوہ کرمل","کوہ نبو","کوہ ارارات"], 0],
+    ["شدرک اور میسک کے ساتھ کسے آگ کی بھٹی میں ڈالا گیا؟", ["عبد نجو","بیلطشضر","نبوکدنضر","مردکی"], 0],
+    ["عیسیٰ کی مصلوبیت کی اجازت کس رومی گورنر نے دی؟", ["ہیرودیس","کائفا","پنطیس پیلاطس","فیلکس"], 2],
+    ["رسولوں پر روح القدس کے نزول کا کون سا واقعہ مشہور ہے؟", ["تجلی کا واقعہ","عید پنتیکوست","مسیح کا آسمان پر جانا","فسح"], 1],
+    ["بنی اسرائیل نے تقریباً کتنے سال بیابان میں سفر کیا؟", ["10","20","40","70"], 2],
+    ["عیسیٰ کی ماں کون تھیں؟", ["الزبتھ","مرتھا","مریم","حنا"], 2],
+    ["زکائیس عیسیٰ سے ملنے سے پہلے کیا کام کرتا تھا؟", ["ماہی گیر","محصول لینے والا","چرواہا","سپاہی"], 1],
+    ["پطمس کے جزیرے میں جلاوطنی کے دوران کس رسول نے مکاشفہ کی کتاب لکھی؟", ["پطرس","یوحنا","پولس","اندریاس"], 1],
+    ["کون سی انجیل عیسیٰ کے اپنے دوست لعزر کی قبر پر رونے کا ذکر کرتی ہے؟", ["متی","مرقس","لوقا","یوحنا"], 3],
+    ["ابراہیم کی بیوی اور اضحاق کی ماں کون تھیں؟", ["رفقہ","راخل","سارہ","لیئہ"], 2],
+    ["یریحو کی دیواروں کے گرنے کی مشہور جنگ میں بنی اسرائیل کی قیادت کس نے کی؟", ["موسیٰ","یشوع","جدعون","سموئیل"], 1]
+  ];
+
+  var TOPICS = [
+    {kw:["afraid","fear","scared","anxious","anxiety","worry","worried","nervous","خوف","ڈر","پریشانی","گھبراہٹ"], refs:["Isaiah 41:10","2 Timothy 1:7","Philippians 4:6-7","Psalms 34:4"]},
+    {kw:["love","محبت"], refs:["1 Corinthians 13:4-7","John 3:16","1 John 4:19","Romans 5:8"]},
+    {kw:["strength","strong","weak","weary","tired","exhausted","طاقت","کمزور","تھکا"], refs:["Philippians 4:13","Isaiah 40:31","2 Corinthians 12:9","Psalms 46:1"]},
+    {kw:["forgive","forgiveness","forgiving","معافی","معاف"], refs:["Ephesians 4:32","1 John 1:9","Matthew 6:14","Colossians 3:13"]},
+    {kw:["hope","hopeless","امید","ناامید"], refs:["Jeremiah 29:11","Romans 15:13","Romans 8:28","Psalms 42:11"]},
+    {kw:["guidance","direction","decision","confused","confusion","lost","رہنمائی","الجھن"], refs:["Proverbs 3:5-6","Psalms 32:8","James 1:5","Isaiah 30:21"]},
+    {kw:["peace","calm","سکون","امن"], refs:["John 14:27","Philippians 4:7","Isaiah 26:3","Psalms 29:11"]},
+    {kw:["wisdom","wise","حکمت"], refs:["James 1:5","Proverbs 9:10","Proverbs 2:6","Colossians 2:3"]},
+    {kw:["comfort","grieving","grief","sad","sadness","mourning","depressed","depression","تسلی","غم","اداس"], refs:["Psalms 34:18","2 Corinthians 1:3-4","Matthew 5:4","Revelation 21:4"]},
+    {kw:["faith","doubt","believe","ایمان","یقین","شک"], refs:["Hebrews 11:1","Mark 9:24","Romans 10:17","2 Corinthians 5:7"]},
+    {kw:["money","wealth","riches","greed","poor","poverty","پیسہ","دولت","غریب"], refs:["1 Timothy 6:10","Matthew 6:24","Proverbs 22:7","Hebrews 13:5"]},
+    {kw:["marriage","husband","wife","spouse","شادی","بیوی","شوہر"], refs:["Ephesians 5:25","Genesis 2:24","1 Corinthians 13:4-7","Colossians 3:19"]},
+    {kw:["death","dying","dead","موت"], refs:["John 11:25","Psalms 23:4","Philippians 1:21","1 Corinthians 15:55"]},
+    {kw:["salvation","saved","sin","sinner","نجات","گناہ"], refs:["Romans 10:9","Ephesians 2:8-9","Romans 3:23","John 14:6"]},
+    {kw:["anger","angry","mad","غصہ"], refs:["Ephesians 4:26","James 1:19-20","Proverbs 15:1","Colossians 3:8"]},
+    {kw:["thankful","thanks","gratitude","grateful","شکر"], refs:["1 Thessalonians 5:18","Psalms 100:4","Colossians 3:15","Philippians 4:6"]},
+    {kw:["trust","بھروسہ","اعتماد"], refs:["Proverbs 3:5","Psalms 56:3","Isaiah 26:4","Nahum 1:7"]},
+    {kw:["patience","patient","waiting","صبر"], refs:["James 1:2-4","Galatians 5:22","Romans 8:25","Psalms 27:14"]},
+    {kw:["prayer","pray","دعا"], refs:["Philippians 4:6","Matthew 6:9-13","1 Thessalonians 5:17","James 5:16"]},
+    {kw:["family","children","parent","kids","خاندان","بچے"], refs:["Joshua 24:15","Proverbs 22:6","Ephesians 6:4","Psalms 127:3"]},
+    {kw:["work","job","career","کام","نوکری"], refs:["Colossians 3:23","Proverbs 14:23","Ecclesiastes 3:13","2 Thessalonians 3:10"]},
+    {kw:["friend","friendship","دوست"], refs:["Proverbs 17:17","Ecclesiastes 4:9-10","John 15:13","Proverbs 27:17"]},
+    {kw:["courage","brave","fearless","ہمت"], refs:["Joshua 1:9","Deuteronomy 31:6","1 Corinthians 16:13","Psalms 27:1"]},
+    {kw:["lonely","loneliness","alone","تنہا","تنہائی"], refs:["Deuteronomy 31:6","Psalms 68:6","Hebrews 13:5","Isaiah 41:10"]},
+    {kw:["temptation","tempted","آزمائش"], refs:["1 Corinthians 10:13","James 1:12-13","Matthew 26:41","Hebrews 2:18"]},
+    {kw:["humility","humble","pride","proud","عاجزی","غرور"], refs:["Philippians 2:3","Proverbs 16:18","James 4:6","Micah 6:8"]},
+    {kw:["jealous","envy","envious","حسد"], refs:["Galatians 5:26","Proverbs 14:30","James 3:16","1 Corinthians 13:4"]},
+    {kw:["joy","happy","happiness","خوشی"], refs:["Nehemiah 8:10","Philippians 4:4","Psalms 16:11","John 15:11"]},
+    {kw:["contentment","content","enough","قناعت"], refs:["Philippians 4:11-12","Hebrews 13:5","1 Timothy 6:6","Psalms 23:1"]},
+    {kw:["purpose","meaning","calling","مقصد"], refs:["Jeremiah 29:11","Ephesians 2:10","Romans 8:28","Proverbs 19:21"]},
+    {kw:["healing","sick","sickness","illness","health","شفا","بیماری"], refs:["James 5:14-15","Psalms 147:3","Jeremiah 17:14","Isaiah 53:5"]},
+    {kw:["heaven","eternal life","afterlife","جنت","آسمان"], refs:["John 14:2-3","Revelation 21:4","1 Corinthians 2:9","Philippians 3:20"]},
+    {kw:["creation","beginning","universe","world","تخلیق","دنیا"], refs:["Genesis 1:1","Psalms 19:1","Colossians 1:16","John 1:3"]}
+  ];
+  var FALLBACK_REFS = ["Jeremiah 29:11","Psalms 46:1","Romans 8:28","Philippians 4:13","Isaiah 41:10"];
+  var CHIPS = [
+    {en:"fear", ur:"خوف", fillEn:"I'm feeling anxious", fillUr:"میں پریشان ہوں"},
+    {en:"love", ur:"محبت", fillEn:"tell me about love", fillUr:"محبت کے بارے میں بتائیں"},
+    {en:"strength", ur:"طاقت", fillEn:"I feel weak", fillUr:"میں کمزور محسوس کرتا ہوں"},
+    {en:"forgiveness", ur:"معافی", fillEn:"help with forgiveness", fillUr:"معافی کے بارے میں"},
+    {en:"hope", ur:"امید", fillEn:"I need hope", fillUr:"مجھے امید چاہیے"},
+    {en:"peace", ur:"سکون", fillEn:"I need peace", fillUr:"مجھے سکون چاہیے"},
+    {en:"wisdom", ur:"حکمت", fillEn:"I need wisdom", fillUr:"مجھے حکمت چاہیے"},
+    {en:"comfort", ur:"تسلی", fillEn:"I am grieving", fillUr:"میں غمگین ہوں"},
+    {en:"purpose", ur:"مقصد", fillEn:"what is my purpose", fillUr:"میرا مقصد کیا ہے"},
+    {en:"healing", ur:"شفا", fillEn:"I am sick", fillUr:"میں بیمار ہوں"}
+  ];
+
+  var SAINTS = [
+    { name:"Paul the Apostle", nameUr:"پولس رسول", tag:"c. 5–67 AD", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born Saul in Tarsus, a strict Pharisee trained under Gamaliel, fluent in both Jewish law and Greek culture. He zealously persecuted the early followers of Jesus, holding the coats of those who stoned Stephen. While traveling to Damascus to arrest more believers, he was struck by a blinding light and heard the voice of the risen Christ asking, ‘Saul, Saul, why do you persecute me?’ Blinded for three days, he was healed and baptized, completely reorienting the course of his life.",
+        ur:"ساؤل ترسس میں پیدا ہوا، ایک سخت فریسی تھا جو ابتدائی مسیحیوں پر ظلم کرتا تھا۔ دمشق کے راستے میں اسے تیز روشنی نظر آئی اور اس نے زندہ مسیح کی آواز سنی: ‘ساؤل، ساؤل، تو مجھے کیوں ستاتا ہے؟’ تین دن اندھا رہنے کے بعد وہ شفایاب ہوا اور بپتسمہ لیا، جس سے اس کی زندگی مکمل طور پر بدل گئی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"As a missionary, Paul faced shipwrecks, beatings, stoning, hunger, and repeated imprisonment across the Roman world, hardships he catalogued himself in his letters. Jewish communities that once welcomed him often turned against him as a traitor to the law, while some early Christians distrusted a former persecutor. He also wrote of a mysterious ‘thorn in the flesh’ that God did not remove despite his prayers, teaching him that grace was sufficient in weakness. Tradition holds he was eventually beheaded in Rome under Emperor Nero.",
+        ur:"پولس نے مشنری کے طور پر بحری حادثات، مار پیٹ، سنگساری، بھوک، اور بار بار قید کا سامنا کیا۔ کئی یہودی برادریوں نے اسے غدار سمجھا، جبکہ کچھ مسیحیوں کو اس کے ماضی پر شک رہا۔ اس نے ‘جسم میں کانٹے’ کا بھی ذکر کیا جسے خدا نے دعا کے باوجود نہیں ہٹایا، اسے سکھاتے ہوئے کہ کمزوری میں فضل کافی ہے۔ روایت کے مطابق اسے آخرکار روم میں شہنشاہ نیرو کے دور میں شہید کیا گیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Paul's letters, roughly a third of the New Testament, teach that salvation comes by grace through faith, not by earning it through the law (Ephesians 2:8-9). He described the Church as one body with many members, each needed (1 Corinthians 12), and wrote that love is greater than any spiritual gift (1 Corinthians 13). His missionary journeys planted churches across Asia Minor, Greece, and beyond, laying the foundation for Christianity's spread throughout the Roman Empire.",
+        ur:"پولس کے خطوط نئے عہد نامہ کا تقریباً ایک تہائی حصہ ہیں۔ اس نے سکھایا کہ نجات ایمان کے ذریعے فضل سے ملتی ہے، شریعت سے نہیں (افسیوں 2:8-9)۔ اس نے کلیسیا کو ایک جسم کی مانند بتایا جس کے کئی اعضاء ضروری ہیں (1-کرنتھیوں 12)، اور محبت کو سب سے بڑی نعمت قرار دیا (1-کرنتھیوں 13)۔ اس کے مشنری سفروں نے ایشیائے کوچک، یونان اور اس سے آگے کلیسیائیں قائم کیں۔" }
+    ]},
+    { name:"Peter the Apostle", nameUr:"پطرس رسول", tag:"d. c. 64–68 AD", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"A Galilean fisherman named Simon, Peter was working his nets on the Sea of Galilee when Jesus called him to become a ‘fisher of men.’ Impulsive and outspoken, he was often the first to answer boldly, once even stepping out of a boat to walk toward Jesus on the water. Jesus renamed him Peter, meaning rock, telling him he would be foundational to the Church, even as his character remained a work in progress throughout the Gospels.",
+        ur:"پطرس، جس کا اصل نام شمعون تھا، گلیل کا ماہی گیر تھا۔ عیسیٰ نے اسے ‘انسانوں کا ماہی گیر’ بننے کے لیے بلایا اور اس کا نام بدل کر پطرس یعنی چٹان رکھا، اگرچہ اس کی شخصیت انجیلوں میں مسلسل نکھرتی رہی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"On the night of Jesus's arrest, Peter denied even knowing him three times, just as Jesus had predicted, then wept bitterly with regret. After the resurrection, Jesus gently restored him by the shore of Galilee, asking three times whether Peter loved him, undoing each denial. Peter later faced imprisonment and persecution as a leader of the Jerusalem church, and tradition holds that in Rome he was ultimately crucified upside down, feeling unworthy to die in the same way as his Lord.",
+        ur:"گرفتاری کی رات پطرس نے تین بار عیسیٰ کو جاننے سے انکار کیا اور شدید نادم ہوا۔ قیامت کے بعد عیسیٰ نے اسے تین بار محبت کا سوال پوچھ کر بحال کیا۔ روایت کے مطابق روم میں اسے الٹا مصلوب کیا گیا کیونکہ وہ خود کو مسیح جیسی موت کے لائق نہیں سمجھتا تھا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Peter became the leading voice of the earliest Church, preaching the first great sermon at Pentecost that led thousands to faith. His two New Testament letters urge believers to remain hopeful under suffering and to conduct themselves with humility and love. His story of failure followed by restoration has made him one of the most relatable and encouraging figures in the New Testament for anyone who has fallen short and sought forgiveness.",
+        ur:"پطرس ابتدائی کلیسیا کا رہنما بنا اور عید پنتیکوست پر پہلا بڑا خطبہ دیا۔ اس کے خطوط ایمانداروں کو مصیبت میں امید اور عاجزی کی تلقین کرتے ہیں۔ اس کی ناکامی اور بحالی کی کہانی آج بھی ہر اس شخص کے لیے حوصلہ افزا ہے جو معافی چاہتا ہے۔" }
+    ]},
+    { name:"Paisios of Mount Athos", nameUr:"پیسیوس آتھوسی", tag:"1924–1994", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born Arsenios Eznepidis in Cappadocia in 1924, he was displaced as an infant during the population exchange between Greece and Turkey. After military service as a radio operator during the Greek Civil War, he entered monastic life, eventually settling among the ascetic communities of Mount Athos, the centuries-old center of Orthodox monasticism in Greece.",
+        ur:"پیسیوس 1924 میں کیپاڈوکیا میں پیدا ہوا اور یونان و ترکی کے درمیان آبادی کے تبادلے کے دوران بچپن میں بے گھر ہوا۔ فوجی خدمات کے بعد اس نے راہب کی زندگی اختیار کی اور ماؤنٹ آتھوس کی صدیوں پرانی راہبانہ برادریوں میں شامل ہوا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Paisios embraced a life of extreme simplicity and self-denial, living for long periods in small huts with minimal food or comfort. In his later years he suffered from a painful, debilitating illness that eventually took his life in 1994, which he endured with striking patience, often turning attention away from his own pain toward the needs of visitors.",
+        ur:"پیسیوس نے انتہائی سادہ اور سخت زندگی گزاری۔ بعد کے سالوں میں ایک تکلیف دہ بیماری نے 1994 میں اس کی جان لے لی، جسے اس نے صبر اور خوش مزاجی سے برداشت کیا، اور اپنی تکلیف کے باوجود ملاقاتیوں کی ضروریات پر توجہ دیتا رہا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Thousands of pilgrims sought out his counsel on marriage, grief, illness, and faith, and his recorded sayings have been published in multiple volumes. He taught that genuine love for God cannot be separated from compassion for other people, and that suffering, received with faith, can become a doorway to holiness rather than despair. He was canonized by the Ecumenical Patriarchate of Constantinople in 2015.",
+        ur:"ہزاروں زائرین اس سے شادی، غم، بیماری اور ایمان کے بارے میں رہنمائی لینے آتے تھے۔ اس نے سکھایا کہ خدا کی محبت دوسروں کے ساتھ ہمدردی سے الگ نہیں ہو سکتی۔ اسے 2015 میں سرکاری طور پر ولی قرار دیا گیا۔" }
+    ]},
+    { name:"Anthony the Great", nameUr:"انتونیوس کبیر", tag:"c. 251–356", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born to wealthy Christian parents in Egypt around 251, Anthony was orphaned in his late teens. Hearing a Gospel reading about selling all one's possessions to follow Christ, he took it as a personal call, gave away his inheritance, and placed his younger sister in a community of women before withdrawing into ascetic life.",
+        ur:"انتونی مصر میں تقریباً 251 میں امیر مسیحی والدین کے ہاں پیدا ہوا اور جوانی میں یتیم ہو گیا۔ انجیل کی تعلیم سن کر کہ سب کچھ بیچ کر مسیح کی پیروی کرو، اس نے اپنی جائیداد بانٹ دی اور تنہائی کی زندگی اختیار کی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Anthony moved progressively deeper into the desert, living in tombs and an abandoned fort, describing intense inner battles with temptation, loneliness, and what he understood as demonic assault. Early biographers describe him found nearly lifeless after one such struggle, yet he continued deeper into solitude rather than retreating.",
+        ur:"انتونی صحرا میں مزید اندر جاتا رہا، قبروں اور ایک ویران قلعے میں رہا، اور شدید اندرونی آزمائشوں کا مقابلہ کیا۔ ایک بار وہ تقریباً بے جان حالت میں پایا گیا، پھر بھی وہ مزید تنہائی کی طرف بڑھا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Anthony taught that constant watchfulness over one's thoughts and total reliance on God could overcome any temptation. His example drew so many followers into the desert that organized Christian monasticism began around his community. Athanasius of Alexandria's biography of his life became one of the most widely read Christian texts of late antiquity.",
+        ur:"انتونی نے سکھایا کہ مسلسل ہوشیاری اور خدا پر بھروسہ کسی بھی آزمائش پر غالب آ سکتا ہے۔ اس کی مثال نے اتنے لوگوں کو صحرا کی طرف کھینچا کہ منظم راہبانہ نظام اسی سے شروع ہوا۔" }
+    ]},
+    { name:"Monica of Hippo", nameUr:"مونیکا", tag:"c. 331–387", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in North Africa around 331 to a Christian family, Monica was given in marriage to Patricius, a pagan man with a difficult temper. She raised her children, including her son Augustine, in the Christian faith despite her husband's initial opposition, eventually seeing him baptized shortly before his death.",
+        ur:"مونیکا 331 کے قریب شمالی افریقہ میں ایک مسیحی گھرانے میں پیدا ہوئی اور پیٹریشیئس نامی ایک مشکل مزاج غیر مسیحی شخص سے بیاہی گئی۔ اس نے اپنے بچوں، بشمول آگسٹین، کو مسیحی ایمان میں پالا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Monica spent years grieving over Augustine's wayward youth, his years following a philosophy she considered false teaching, and his refusal to be baptized. She wept so persistently that a bishop reportedly told her, ‘the child of these tears shall never perish.’ She followed Augustine to Italy, continuing to pray even when it seemed hopeless.",
+        ur:"مونیکا نے آگسٹین کی گمراہ جوانی اور بپتسمہ سے انکار پر برسوں آنسو بہائے۔ ایک بشپ نے مبینہ طور پر اس سے کہا: ‘اتنے آنسوؤں کا بیٹا ہلاک نہیں ہو سکتا۔’ وہ آگسٹین کے پیچھے اٹلی تک گئی، جب امید بھی معدوم لگتی تھی۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Monica did not write theology, but her life became a model of persistent intercessory prayer for a wayward child. She lived to see Augustine's conversion and baptism, dying shortly after in Ostia, Italy, on the journey home. Her patient, unglamorous faith remains an encouragement to parents who pray for children who have wandered.",
+        ur:"مونیکا نے کوئی الہیات نہیں لکھی، لیکن اس کی زندگی گمراہ بچے کے لیے مسلسل دعا کی مثال بن گئی۔ اس نے آگسٹین کی تبدیلی دیکھی اور واپسی کے سفر پر اٹلی کے شہر اوستیا میں وفات پائی۔" }
+    ]},
+    { name:"Augustine of Hippo", nameUr:"آگسٹین", tag:"354–430", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in North Africa in 354 to Monica and Patricius, Augustine received an excellent education and moved to Carthage, then Rome and Milan, pursuing a career teaching rhetoric. Along the way he lived with a partner outside marriage, fathered a son, and explored philosophies his mother considered dangerous, all while feeling increasingly restless.",
+        ur:"آگسٹین 354 میں شمالی افریقہ میں مونیکا اور پیٹریشیئس کے ہاں پیدا ہوا۔ اس نے بہترین تعلیم پائی اور کارتھیج، پھر روم اور میلان میں فن تقریر پڑھانے کا پیشہ اپنایا، جبکہ ایک ساتھی کے ساتھ بغیر شادی کے رہا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Augustine described years of internal conflict between his ambitions and pleasures and a growing pull toward Christian faith, famously praying ‘give me chastity, but not yet.’ A turning point came in a Milan garden, where he heard a child's voice repeating ‘take up and read,’ prompting him to open Scripture to a passage that finally broke his resistance.",
+        ur:"آگسٹین نے اپنی خواہشات اور بڑھتے ہوئے مسیحی رجحان کے درمیان برسوں کی اندرونی کشمکش بیان کی، اور مشہور دعا کی: ‘مجھے پاکیزگی دے، مگر ابھی نہیں۔’ میلان کے ایک باغ میں ایک بچے کی آواز سن کر اس نے بائبل کھولی اور تبدیل ہو گیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Augustine became Bishop of Hippo and one of Christianity's most influential theologians, writing Confessions, a searingly honest account of his own sin and conversion, and The City of God. His teaching on grace, original sin, and the nature of the Church shaped both Catholic and later Protestant theology for over a thousand years.",
+        ur:"آگسٹین ہپو کا بشپ بنا اور مسیحیت کے سب سے بااثر ماہرین الہیات میں سے ایک بن گیا۔ اس نے ‘اعترافات’ لکھی، اپنے گناہ اور تبدیلی کا دیانتدارانہ بیان۔ فضل پر اس کی تعلیمات نے صدیوں تک الہیات کو تشکیل دیا۔" }
+    ]},
+    { name:"Jerome", nameUr:"جیروم", tag:"c. 347–420", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born around 347 in the region of modern Croatia, Jerome received a classical Roman education in rhetoric and literature before being baptized as a young man in Rome. He traveled extensively, eventually pursuing ascetic life and dedicating himself to serious study of Scripture.",
+        ur:"جیروم تقریباً 347 میں موجودہ کروشیا کے علاقے میں پیدا ہوا اور روم میں کلاسیکی تعلیم حاصل کی، اور وہیں جوانی میں بپتسمہ لیا۔ اس نے بہت سفر کیا اور آخرکار زاہدانہ زندگی اور بائبل کے مطالعے کو اپنایا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"While living as a hermit in the Syrian desert near Antioch, Jerome described being tormented by memories of the pleasures of Rome even as he tried to master Hebrew as a discipline of self-denial. He was famously quick-tempered, and his often harsh, sarcastic writings against theological opponents earned him lasting enemies.",
+        ur:"انطاکیہ کے قریب شامی صحرا میں رہتے ہوئے، جیروم روم کی یادوں سے پریشان رہا جبکہ عبرانی زبان سیکھنے کی مشقت کرتا رہا۔ وہ تیز مزاج کے لیے مشہور تھا، اور اپنے مخالفین کے خلاف تلخ تحریروں کی وجہ سے اس کے دشمن بھی بہت بنے۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Settling in Bethlehem, Jerome spent decades translating the Bible from Hebrew and Greek into Latin, producing the Vulgate, which became the standard biblical text of the Western Church for over a thousand years. His scholarship, despite his difficult personality, gave the medieval Church direct access to Scripture.",
+        ur:"بیت لحم میں رہتے ہوئے، جیروم نے دہائیوں تک بائبل کا عبرانی اور یونانی سے لاطینی میں ترجمہ کیا، جسے ‘ولگیٹ’ کہا جاتا ہے، جو ہزار سال سے زیادہ مغربی کلیسیا کی معیاری بائبل رہی۔" }
+    ]},
+    { name:"Benedict of Nursia", nameUr:"بینیڈکٹ", tag:"c. 480–547", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born around 480 in Nursia, Italy, Benedict was sent to study in Rome but was troubled by the immorality he witnessed among fellow students. He abandoned his studies and withdrew to live as a hermit in a cave at Subiaco, relying on a monk named Romanus to secretly bring him food.",
+        ur:"بینیڈکٹ 480 کے قریب نرسیا، اٹلی میں پیدا ہوا۔ روم میں تعلیم کے دوران ساتھی طلبہ کی بداخلاقی دیکھ کر وہ پریشان ہوا اور سبیاکو کی ایک غار میں تارک الدنیا زندگی اختیار کی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"As word of his holiness spread, a nearby monastery asked him to become their abbot, but the monks, resentful of his strict discipline, allegedly attempted to poison his wine; tradition holds the cup shattered when he blessed it. A jealous local priest's rivalry later forced him to relocate to Monte Cassino.",
+        ur:"جب اس کی نیکی کی شہرت پھیلی تو ایک قریبی خانقاہ نے اسے اپنا سربراہ بنایا، مگر سخت نظم و ضبط سے ناراض راہبوں نے مبینہ طور پر اسے زہر دینے کی کوشش کی۔ ایک حاسد پادری کی مخالفت نے اسے مونٹے کاسینو منتقل ہونے پر مجبور کیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"At Monte Cassino, Benedict wrote the Rule of Saint Benedict, a balanced guide to community life built on prayer, manual work, and obedience, summarized in ‘ora et labora’ — pray and work. The Rule became the foundation of Western monasticism, preserving learning and stability through the disorder that followed Rome's collapse.",
+        ur:"مونٹے کاسینو میں بینیڈکٹ نے ‘قاعدہ بینیڈکٹ’ لکھا، جو دعا، محنت اور اطاعت پر مبنی متوازن اجتماعی زندگی کا رہنما ہے۔ یہ قاعدہ مغربی راہبانہ نظام کی بنیاد بنا۔" }
+    ]},
+    { name:"Patrick of Ireland", nameUr:"پیٹرک", tag:"c. 385–461", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born around 385 in Roman Britain to a Christian family, Patrick was not particularly devout as a boy. At sixteen he was captured by Irish raiders and enslaved for six years as a shepherd, during which time isolation and hardship deepened his faith into a personal, constant practice of prayer.",
+        ur:"پیٹرک تقریباً 385 میں رومی برطانیہ میں ایک مسیحی گھرانے میں پیدا ہوا۔ سولہ سال کی عمر میں آئرش قزاقوں نے اسے اغوا کر کے چھ سال تک غلام چرواہے کے طور پر رکھا، جس دوران تنہائی نے اس کے ایمان کو گہرا کیا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"After hearing a voice in a dream telling him a ship was ready to take him home, Patrick escaped and walked roughly two hundred miles to the coast. Years later, another vision calling him back to Ireland led him to return, this time to the very people who had enslaved him, facing hostility from local kings and druid priests.",
+        ur:"ایک خواب میں آواز سن کر کہ جہاز تیار ہے، پیٹرک فرار ہوا اور تقریباً دو سو میل پیدل چل کر ساحل پہنچا۔ برسوں بعد ایک اور رویا نے اسے آئرلینڈ واپس بلایا، جہاں مقامی بادشاہوں اور جادوگر پجاریوں کی مخالفت کا سامنا کرنا پڑا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Patrick spent decades establishing churches and training clergy across Ireland, using local symbols like the shamrock, tradition holds, to explain the Trinity. His Confession, a humble first-person account of his life and calling, is one of the earliest surviving documents from the British Isles.",
+        ur:"پیٹرک نے دہائیوں تک آئرلینڈ بھر میں کلیسیائیں قائم کیں۔ روایت کے مطابق اس نے سہ شاخہ پتی کے ذریعے تثلیث سمجھائی۔ اس کا ‘اعتراف’ برطانوی جزائر کی قدیم ترین تحریروں میں سے ایک ہے۔" }
+    ]},
+    { name:"Nicholas of Myra", nameUr:"نکولس", tag:"c. 270–343", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born around 270 in Patara, in modern Turkey, to wealthy Christian parents who died while he was young, Nicholas inherited considerable wealth. Rather than keeping it, he began quietly using it to help those in need, eventually becoming bishop of the nearby city of Myra.",
+        ur:"نکولس تقریباً 270 میں پاتارا، موجودہ ترکی میں امیر مسیحی والدین کے ہاں پیدا ہوا جو اس کی جوانی میں ہی وفات پا گئے۔ دولت رکھنے کے بجائے اس نے اسے ضرورت مندوں کی مدد کے لیے استعمال کیا اور بعد میں مائرا کا بشپ بنا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"During the persecution of Christians under Emperor Diocletian, tradition holds Nicholas was imprisoned for his faith before later being released when Christianity gained toleration under Constantine. Later legend also places him at the Council of Nicaea in 325, defending core Christian teaching against the Arian heresy.",
+        ur:"ڈیوکلیشین کے دور کے ظلم و ستم میں روایت کے مطابق نکولس کو ایمان کی وجہ سے قید کیا گیا، بعد میں رہا ہوا۔ روایت اسے 325 میں کونسل آف نائسیا میں بھی رکھتی ہے۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Nicholas became famous for secretly providing dowries for three impoverished sisters so they would not be forced into destitution, tossing gold through their window at night, a story widely credited as the origin of the Santa Claus tradition. He remains a model of hidden, sacrificial generosity toward the vulnerable.",
+        ur:"نکولس تین غریب بہنوں کو خفیہ طور پر جہیز دینے کے لیے مشہور ہوا، رات کو ان کی کھڑکی سے سونا پھینک کر — یہ کہانی سانتا کلاز کی روایت کی بنیاد سمجھی جاتی ہے۔" }
+    ]},
+    { name:"Francis of Assisi", nameUr:"فرانسس اسیزی", tag:"1181/82–1226", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1181 or 1182 to a wealthy cloth merchant in Assisi, Italy, Francis enjoyed a carefree youth of parties and ambitions of knighthood. Captured and imprisoned for a year during a local war, and later gravely ill, he emerged from these experiences searching for deeper meaning.",
+        ur:"فرانسس 1181 یا 1182 میں اسیزی کے ایک امیر تاجر کے گھر پیدا ہوا اور جوانی میں عیش و عشرت کی زندگی گزارتا تھا۔ ایک جنگ میں ایک سال قید رہنے اور شدید بیمار ہونے کے بعد وہ گہرے مقصد کی تلاش میں نکلا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Encounters with lepers and a moment of prayer before a crucifix in a ruined chapel, where he felt called to ‘rebuild my church,’ marked Francis's turning point. His father, furious at Francis giving away merchandise and money to the poor, publicly disowned him, and Francis responded by stripping off his clothes in the town square and walking away naked into a life of poverty.",
+        ur:"کوڑھیوں سے ملاقاتوں اور ایک ویران چیپل میں صلیب کے سامنے دعا کے دوران فرانسس کو ‘میری کلیسیا کو دوبارہ تعمیر کرو’ کی پکار محسوس ہوئی۔ اس کے والد نے غصے میں اسے عاق کر دیا، جس پر فرانسس نے چوک میں اپنے کپڑے اتار کر مکمل غربت کی زندگی اپنائی۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Francis founded the Franciscan order on radical poverty, service to the poor, and love for creation, famously preaching even to birds. Near the end of his life, tradition holds he received the stigmata, wounds resembling those of Christ's crucifixion. He remains one of the most universally admired figures across Christian traditions and beyond.",
+        ur:"فرانسس نے فرانسسکن آرڈر کی بنیاد رکھی جو غربت، غریبوں کی خدمت اور مخلوقات سے محبت پر مبنی تھی۔ روایت کے مطابق اس کی زندگی کے آخر میں اسے مسیح کے زخموں جیسے نشانات ملے۔" }
+    ]},
+    { name:"Clare of Assisi", nameUr:"کلیئر اسیزی", tag:"1194–1253", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1194 to a noble family in Assisi, Clare was deeply moved by Francis's preaching as a teenager. Against her family's wishes for an advantageous marriage, she secretly left home at night at age eighteen to join Francis's movement, cutting off her hair as a symbol of her new life.",
+        ur:"کلیئر 1194 میں اسیزی کے ایک شریف گھرانے میں پیدا ہوئی۔ نوجوانی میں فرانسس کی تبلیغ سے متاثر ہو کر، اٹھارہ سال کی عمر میں رات کو خفیہ طور پر گھر چھوڑ کر فرانسس کی تحریک میں شامل ہوئی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Clare's relatives attempted to physically drag her from the convent to force her return home, but she clung to the altar and resisted. She went on to found the Poor Clares, insisting on total poverty even when Church authorities pressured her community to accept property and secure income.",
+        ur:"اس کے رشتہ داروں نے اسے زبردستی واپس لے جانے کی کوشش کی، مگر وہ قربان گاہ سے چمٹی رہی۔ اس نے ‘غریب کلیئرز’ کی بنیاد رکھی اور کلیسیائی حکام کے دباؤ کے باوجود مکمل غربت پر اصرار کیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Clare led her community for forty years, often directing it from her sickbed during her later years of illness, finally securing papal approval for her way of life just before her death. Her insistence on radical poverty gave women a distinctive and influential place within the wider Franciscan movement.",
+        ur:"کلیئر نے چالیس سال تک اپنی جماعت کی قیادت کی، وفات سے پہلے پاپائی منظوری حاصل کر لی۔ غربت پر اس کا اصرار فرانسسکن تحریک میں خواتین کو ایک منفرد مقام دیتا ہے۔" }
+    ]},
+    { name:"Thomas Aquinas", nameUr:"تھامس اکوئنی", tag:"1225–1274", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born around 1225 to an aristocratic Italian family, Thomas was expected to pursue a prestigious position within the Church hierarchy. Instead, as a teenager he chose to join the Dominicans, a newer order committed to poverty and preaching, a decision his family found deeply humiliating.",
+        ur:"تھامس تقریباً 1225 میں اطالوی اشرافیہ کے گھرانے میں پیدا ہوا۔ خاندان اسے کلیسیا میں بڑا عہدہ دلانا چاہتا تھا، مگر نوجوانی میں اس نے ڈومینیکن آرڈر میں شمولیت اختیار کی، جو خاندان کے لیے شرمندگی کا باعث بنی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Thomas's brothers, acting on his family's orders, kidnapped him and held him under house arrest for nearly a year, reportedly even sending a woman to tempt him from his vow of celibacy; Thomas drove her away and remained firm. Eventually his family relented, and he was allowed to enter religious life.",
+        ur:"اس کے بھائیوں نے خاندان کے حکم پر اسے اغوا کر کے تقریباً ایک سال گھر میں نظر بند رکھا، اور روایت کے مطابق اسے بہکانے کے لیے ایک عورت بھی بھیجی، جسے تھامس نے بھگا دیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Thomas became the towering theologian of the Middle Ages, writing the Summa Theologica, a vast synthesis of Christian doctrine and Aristotelian philosophy still studied today. Near the end of his life he experienced a profound mystical encounter during Mass, after which he stopped writing entirely, saying all he had written seemed like straw compared to what he had seen.",
+        ur:"تھامس قرون وسطیٰ کا سب سے بڑا ماہر الہیات بنا اور ‘سمّا تھیالوجیکا’ لکھی۔ زندگی کے آخر میں ایک گہرے روحانی تجربے کے بعد اس نے لکھنا مکمل چھوڑ دیا، کہا کہ جو کچھ اس نے لکھا وہ بھوسے کی مانند تھا۔" }
+    ]},
+    { name:"Catherine of Siena", nameUr:"کیتھرین سیانا", tag:"1347–1380", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1347, the twenty-fourth of twenty-five children in a Sienese wool-dyer's family, Catherine experienced visions from a young age and resisted her parents' plans to marry her off, cutting off her hair in protest and dedicating herself to prayer and service to the sick and poor.",
+        ur:"کیتھرین 1347 میں سیانا کے ایک اونی رنگریز کے گھر پچیس بچوں میں سے چوبیسویں پیدا ہوئی۔ چھوٹی عمر سے رویائیں دیکھنے لگی اور شادی کی مخالفت میں اپنے بال کاٹ ڈالے۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Though entirely without formal schooling, Catherine became a bold and unlikely advisor to popes and cardinals during a period of crisis when the papacy had relocated to Avignon, France. She faced skepticism for a young, unlettered woman speaking so directly to powerful churchmen, yet persisted, eventually traveling to Avignon herself.",
+        ur:"بغیر کسی رسمی تعلیم کے، کیتھرین پوپ اور کارڈینلز کی بے باک مشیر بن گئی، اس دور میں جب پاپائیت فرانس کے شہر ایوینون منتقل ہو چکی تھی۔ اسے شک کا سامنا کرنا پڑا، مگر وہ خود ایوینون گئی۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Catherine successfully persuaded Pope Gregory XI to return the papacy to Rome in 1377, reshaping the course of Church history. She died at only thirty-three, and centuries later was declared a Doctor of the Church for the theological depth of her writings, particularly The Dialogue, dictated during ecstatic prayer.",
+        ur:"کیتھرین نے پوپ کو روم واپس آنے پر آمادہ کیا۔ وہ صرف تینتیس سال کی عمر میں وفات پا گئی، اور صدیوں بعد اسے کلیسیا کی معلمہ قرار دیا گیا۔" }
+    ]},
+    { name:"Teresa of Avila", nameUr:"تریسا آویلا", tag:"1515–1582", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1515 to a Spanish family, Teresa entered a Carmelite convent as a young woman partly to escape an unwanted marriage. For years she lived a comfortable, socially active convent life that left her spiritually unsatisfied and, by her own account, half-hearted in prayer.",
+        ur:"تریسا 1515 میں ہسپانوی خاندان میں پیدا ہوئی اور جوانی میں ایک ناپسندیدہ شادی سے بچنے کے لیے کارملائٹ خانقاہ میں داخل ہوئی۔ برسوں تک وہ ایک آرام دہ زندگی گزارتی رہی جو روحانی طور پر غیر مطمئن تھی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"In her forties, Teresa experienced a profound conversion of heart that pushed her toward a stricter, more contemplative life, but her efforts to reform the Carmelite order met fierce resistance from other nuns, local authorities, and eventually suspicion from the Spanish Inquisition, which investigated her writings and visions.",
+        ur:"چالیس سال کی عمر میں گہری تبدیلی کے بعد، تریسا نے آرڈر کو سخت اور غریب بنانے کی کوشش کی، مگر دوسری راہباؤں اور ہسپانوی انکوزیشن کی سخت مخالفت کا سامنا کرنا پڑا، جس نے اس کی تحریروں کی تحقیقات کیں۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Despite this opposition, Teresa founded seventeen new reformed convents across Spain. Her book Interior Castle describes the soul's journey through seven ‘mansions’ toward union with God and remains one of the great classics of Christian mysticism, and she was later declared a Doctor of the Church.",
+        ur:"اس مخالفت کے باوجود، تریسا نے ہسپانیہ بھر میں سترہ نئی اصلاح شدہ خانقاہیں قائم کیں۔ اس کی کتاب ‘اندرونی قلعہ’ روح کے خدا سے اتحاد کے سفر کو بیان کرتی ہے۔" }
+    ]},
+    { name:"John of the Cross", nameUr:"جان آف دی کراس", tag:"1542–1591", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1542 to a poor family in Spain, John studied at a Jesuit school before joining the Carmelite order. He met Teresa of Avila as a young priest and became a close collaborator in her project to reform the order toward greater simplicity and contemplative depth.",
+        ur:"جان 1542 میں ہسپانیہ کے ایک غریب گھرانے میں پیدا ہوا۔ جیسوٹ سکول میں تعلیم کے بعد کارملائٹ آرڈر میں شامل ہوا اور تریسا آف آویلا کی اصلاحی تحریک میں قریبی ساتھی بن گیا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Opponents of the reform had John kidnapped by fellow Carmelites and imprisoned in a tiny, dark cell in Toledo for nine months, where he was regularly brought out for public punishment. He eventually escaped by tying together strips of cloth to climb through a small window.",
+        ur:"اصلاح کے مخالف راہبوں نے جان کو اغوا کر کے تولیدو کے ایک تاریک، چھوٹے سیل میں نو ماہ تک قید رکھا۔ آخرکار اس نے کپڑوں کی پٹیاں باندھ کر ایک چھوٹی کھڑکی سے فرار پایا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Out of this imprisonment came some of his greatest poetry, including Dark Night of the Soul, which describes how periods when God feels distant can actually be a purifying stage that draws the soul closer to him. His writings remain foundational texts of Christian mystical theology.",
+        ur:"اسی قید کے دوران اس نے اپنی بہترین شاعری لکھی، بشمول ‘روح کی تاریک رات’، جو بیان کرتی ہے کہ خدا کی دوری کا احساس دراصل روح کو پاک کر کے اس کے قریب لا سکتا ہے۔" }
+    ]},
+    { name:"Ignatius of Loyola", nameUr:"اگناتیئس لویولا", tag:"1491–1556", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1491 to a noble Basque family, Ignatius pursued a career as a courtier and soldier, driven by vanity and ambition for glory. In 1521, a cannonball shattered his leg during the defense of Pamplona, ending his military career and forcing a long, painful recovery.",
+        ur:"اگناتیئس 1491 میں باسک اشرافیہ کے گھرانے میں پیدا ہوا اور شہرت کی خواہش میں درباری اور سپاہی کی زندگی اپنائی۔ 1521 میں توپ کے گولے سے اس کی ٹانگ زخمی ہوئی، جس نے اس کے فوجی کیریئر کا خاتمہ کر دیا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"With nothing else to read during his convalescence, Ignatius was given books on the life of Christ and the saints, which sparked a slow but decisive change of heart. He later spent almost a year in intense prayer and self-examination in a cave near Manresa, working through severe spiritual turmoil before arriving at clarity.",
+        ur:"صحت یابی کے دوران پڑھنے کو صرف مسیح اور اولیاء کی زندگیوں کی کتابیں ملیں، جس نے آہستہ آہستہ اس کا دل بدل دیا۔ اس نے مانریسا کے قریب ایک غار میں تقریباً ایک سال شدید دعا اور خود احتسابی میں گزارا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Out of this period came the Spiritual Exercises, a structured, practical method for discerning God's will still used worldwide today. Ignatius founded the Society of Jesus (the Jesuits) in 1540, which became a major force in education, theology, and missionary work across the globe.",
+        ur:"اسی دور سے ‘روحانی مشقیں’ وجود میں آئیں، جو آج بھی خدا کی مرضی جاننے کا طریقہ سکھاتی ہیں۔ اگناتیئس نے 1540 میں سوسائٹی آف جیزس (جیسوٹس) قائم کی۔" }
+    ]},
+    { name:"Francis Xavier", nameUr:"فرانسس زیویئر", tag:"1506–1552", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1506 to Basque nobility, Francis Xavier studied in Paris, where he became close friends with Ignatius of Loyola and was among the first small group to found the Society of Jesus, initially more drawn to academic ambition than missionary life.",
+        ur:"فرانسس زیویئر 1506 میں باسک اشرافیہ میں پیدا ہوا اور پیرس میں تعلیم کے دوران اگناتیئس لویولا کا قریبی دوست بنا، اور سوسائٹی آف جیزس بنانے والے ابتدائی گروہ میں شامل تھا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Sent as a missionary to India and later Japan, Xavier endured grueling sea voyages, unfamiliar and often hostile cultures, severe language barriers, tropical illness, and constant risk of shipwreck. He adapted his methods repeatedly to communicate Christian teaching within very different cultural contexts.",
+        ur:"بھارت اور بعد میں جاپان بھیجے جانے پر زیویئر نے تھکا دینے والے سمندری سفر، اجنبی ثقافتیں، سخت زبان کی رکاوٹیں، بیماری، اور جہاز ٹوٹنے کا مسلسل خطرہ برداشت کیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Xavier is credited with baptizing tens of thousands of people across South and East Asia in roughly a decade of ceaseless travel. He died in 1552 on a small island off the coast of China, still trying to find a way to reach the mainland.",
+        ur:"زیویئر کو تقریباً ایک دہائی کے مسلسل سفر میں جنوبی اور مشرقی ایشیا میں ہزاروں لوگوں کو بپتسمہ دینے کا سہرا جاتا ہے۔ وہ 1552 میں چین کے ساحل کے قریب ایک چھوٹے جزیرے پر وفات پا گیا۔" }
+    ]},
+    { name:"Vincent de Paul", nameUr:"ونسنٹ ڈی پال", tag:"1581–1660", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1581 to a poor farming family in southwestern France, Vincent was ordained a priest partly as a path out of poverty. While traveling by sea early in his career, he was captured by pirates and sold into slavery in North Africa, escaping after roughly two years.",
+        ur:"ونسنٹ 1581 میں فرانس کے ایک غریب کسان گھرانے میں پیدا ہوا اور غربت سے نکلنے کے لیے پادری بنا۔ ابتدائی کیریئر میں قزاقوں نے اسے پکڑ کر شمالی افریقہ میں غلام بنا دیا، جہاں سے وہ تقریباً دو سال بعد فرار ہوا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Returning to France, Vincent initially pursued a comfortable clerical career before a series of encounters with the desperate rural poor and condemned galley slaves reoriented his priorities entirely. He faced the difficulty of persuading wealthy patrons and clergy to take practical, sustained responsibility for the poor.",
+        ur:"فرانس واپسی پر ونسنٹ نے پہلے آرام دہ کیریئر اپنایا، مگر دیہی غریبوں سے ملاقاتوں نے اس کی ترجیحات مکمل بدل دیں۔ اسے امیر سرپرستوں کو مستقل ذمہ داری پر آمادہ کرنا مشکل لگا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Vincent organized structured, ongoing relief efforts and founded religious communities, including the Daughters of Charity, devoted to serving the sick and destitute directly in their homes. His practical model of organized charity influenced how the Church approached poverty for centuries afterward.",
+        ur:"ونسنٹ نے منظم امدادی کام قائم کیا اور ‘ڈاٹرز آف چیریٹی’ جیسی جماعتیں بنائیں جو بیماروں اور نادار لوگوں کی براہ راست خدمت کرتی تھیں۔" }
+    ]},
+    { name:"Seraphim of Sarov", nameUr:"سیرافم ساروفی", tag:"1754–1833", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1754 in Russia, Seraphim entered monastic life as a young man and eventually withdrew to live as a hermit in the forest near the Sarov monastery, spending years in near-total solitude, prayer, and extreme physical austerity, including reportedly standing on a rock in prayer for a thousand nights.",
+        ur:"سیرافم 1754 میں روس میں پیدا ہوا اور جوانی میں راہبانہ زندگی اختیار کی، آخرکار ساروف خانقاہ کے قریب جنگل میں تنہا رہنے لگا، برسوں دعا اور سخت پرہیزی میں گزارے۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"While living alone in the forest, Seraphim was attacked and severely beaten by a group of robbers who wrongly believed he had hidden money, leaving him permanently bent over for the rest of his life. Remarkably, he asked that his attackers not be punished when they were later caught.",
+        ur:"جنگل میں تنہا رہتے ہوئے، ڈاکوؤں کے ایک گروہ نے غلط فہمی میں اسے بری طرح مارا، جس سے وہ عمر بھر کے لیے جھکا رہ گیا۔ حیرت انگیز طور پر اس نے بعد میں ان کی سزا کے خلاف درخواست کی۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"In his final years, Seraphim opened his door to a constant stream of pilgrims, greeting each one with ‘My joy, Christ is risen,’ whatever the season. He taught that ‘the true aim of the Christian life is the acquisition of the Holy Spirit,’ and that one person's inner peace could help save thousands of others.",
+        ur:"آخری برسوں میں سیرافم نے ہر زائر کو ‘میری خوشی، مسیح جی اٹھا ہے’ کہہ کر خوش آمدید کہا۔ اس نے سکھایا کہ مسیحی زندگی کا اصل مقصد روح القدس کا حصول ہے۔" }
+    ]},
+    { name:"Thérèse of Lisieux", nameUr:"تریز لیزیو", tag:"1873–1897", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1873 in France, Thérèse lost her mother at age four and was raised by her father and older sisters, several of whom also entered religious life. Determined to enter the Carmelite convent alongside her sisters despite her young age, she famously appealed in person to Pope Leo XIII to be allowed to join at only fifteen.",
+        ur:"تریز 1873 میں فرانس میں پیدا ہوئی اور چار سال کی عمر میں اپنی والدہ کو کھو دیا۔ اپنی بہنوں کے ساتھ خانقاہ میں شامل ہونے کے لیے بے چین، اس نے پوپ سے ذاتی طور پر درخواست کی کہ اسے پندرہ سال کی عمر میں داخلہ دیا جائے۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Life within the convent was often difficult, marked by friction with other nuns, physical illness, and a period of profound inner spiritual darkness and doubt near the end of her life, even as she continued outwardly to encourage others in faith. She died of tuberculosis at only twenty-four.",
+        ur:"خانقاہ کی زندگی اکثر مشکل تھی، دوسری راہباؤں سے رگڑ، جسمانی بیماری، اور زندگی کے آخر میں گہری روحانی تاریکی کے باوجود وہ دوسروں کو ایمان میں حوصلہ دیتی رہی۔ وہ صرف چوبیس سال کی عمر میں تپ دق سے وفات پا گئی۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Her autobiography, Story of a Soul, published after her death, introduced her ‘Little Way’ — the belief that small, hidden acts of love done with great faith matter to God as much as dramatic accomplishments. This simple spirituality made her one of the most beloved saints of the modern era.",
+        ur:"اس کی خودنوشت ‘روح کی کہانی’ نے ‘چھوٹا راستہ’ متعارف کرایا — یہ یقین کہ محبت کے چھوٹے، پوشیدہ کام بڑے کارناموں جتنی اہمیت رکھتے ہیں۔" }
+    ]},
+    { name:"John Vianney", nameUr:"جان ویانی", tag:"1786–1859", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1786 in rural France during the upheaval of the French Revolution, Jean-Baptiste Vianney received a very limited early education. He struggled so severely with Latin and academic study in seminary that he was nearly dismissed from training for the priesthood entirely.",
+        ur:"ژاں باپتیست ویانی 1786 میں فرانسیسی انقلاب کی افراتفری میں دیہی فرانس میں پیدا ہوا اور محدود ابتدائی تعلیم پائی۔ سیمینری میں لاطینی زبان کی شدید مشکل کی وجہ سے وہ تقریباً پادری بننے سے خارج کر دیا گیا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Assigned to the small, spiritually neglected village of Ars, Vianney devoted himself to prayer, fasting, and hearing confessions for up to sixteen hours a day as pilgrims began arriving from across France. He also described years of strange nighttime disturbances he attributed to the devil trying to distract him.",
+        ur:"آرس کے چھوٹے، نظر انداز گاؤں میں تعینات ہو کر، ویانی نے دعا، روزہ اور اعتراف سننے میں دن میں سولہ گھنٹے تک وقف کیے۔ اس نے رات کی عجیب پریشانیوں کا بھی ذکر کیا جنہیں وہ شیطان کی مداخلت سمجھتا تھا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Vianney's relentless availability for confession, sometimes hearing thousands of people a year, became legendary, and he remains the patron saint of parish priests. His life demonstrated that a simple, poorly educated priest devoted entirely to prayer could transform an entire region's spiritual life.",
+        ur:"ویانی کی اعتراف سننے کے لیے لگاتار دستیابی مشہور ہو گئی، بعض اوقات سالانہ ہزاروں لوگ آتے۔ وہ پیرش پادریوں کا سرپرست ولی ہے۔" }
+    ]},
+    { name:"Maximilian Kolbe", nameUr:"میکسیملین کولبے", tag:"1894–1941", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1894 in Poland, Kolbe joined the Franciscans as a young man and later founded a large monastery and publishing operation, using the printing press to spread Christian teaching to a wide readership before the outbreak of the Second World War.",
+        ur:"کولبے 1894 میں پولینڈ میں پیدا ہوا، جوانی میں فرانسسکن آرڈر میں شامل ہوا اور بعد میں ایک بڑی خانقاہ اور اشاعتی ادارہ قائم کیا، جنگ عظیم دوم سے پہلے پرنٹنگ پریس کے ذریعے مسیحی تعلیم پھیلائی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"After the German invasion of Poland, Kolbe used his monastery to shelter thousands of refugees, including as many as two thousand Jews, at great personal risk. He was eventually arrested by the Gestapo and sent to Auschwitz, where prisoners were selected at random for execution by starvation whenever an escape occurred.",
+        ur:"جرمن حملے کے بعد کولبے نے اپنی خانقاہ میں ہزاروں پناہ گزینوں، بشمول تقریباً دو ہزار یہودیوں کو، بڑے ذاتی خطرے پر پناہ دی۔ آخرکار گسٹاپو نے اسے گرفتار کر کے آشوٹز بھیج دیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"When a stranger, a husband and father, was selected for the starvation bunker, Kolbe volunteered to take his place. He survived roughly two weeks leading his fellow condemned prisoners in prayer before being killed by lethal injection, a striking act of self-sacrifice for someone he did not know.",
+        ur:"جب ایک اجنبی، شوہر اور باپ، کو بھوک کی کوٹھڑی کے لیے چنا گیا، کولبے نے اس کی جگہ لینے کی پیشکش کی۔ وہ تقریباً دو ہفتے ساتھی قیدیوں کو دعا میں رہنمائی کرتا رہا، پھر مار دیا گیا۔" }
+    ]},
+    { name:"Nektarios of Aegina", nameUr:"نیکتاریوس ایگینائی", tag:"1846–1920", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born in 1846 in Greece to a poor family, Nektarios worked as a teacher before entering the priesthood and rising to become a respected bishop serving the Greek Orthodox community in Alexandria, Egypt.",
+        ur:"نیکتاریوس 1846 میں یونان کے ایک غریب گھرانے میں پیدا ہوا، پادری بننے سے پہلے استاد کے طور پر کام کیا، اور مصر کے اسکندریہ میں یونانی آرتھوڈوکس برادری کا محترم بشپ بنا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"Jealous rivals within the Egyptian church hierarchy spread false accusations against him, and he was dismissed from his position and expelled from Egypt without ever being given a chance to defend himself, a slander that damaged his reputation for the rest of his life. He accepted the injustice without public complaint.",
+        ur:"مصری کلیسیا کے حاسد حریفوں نے اس کے خلاف جھوٹے الزامات پھیلائے، اور اسے دفاع کا موقع دیے بغیر عہدے سے ہٹا کر مصر سے نکال دیا گیا۔ اس نے بغیر شکایت کے یہ ناانصافی قبول کی۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Nektarios later founded a convent on the small island of Aegina, where he lived simply, taught the nuns, and wrote theological works. After his death in 1920, numerous healings were reported at his tomb, and he became one of the most beloved modern saints in Greek Orthodoxy.",
+        ur:"نیکتاریوس نے بعد میں ایگینا کے چھوٹے جزیرے پر ایک خانقاہ قائم کی، جہاں وہ سادگی سے رہا۔ 1920 میں وفات کے بعد اس کی قبر پر کئی شفایابیاں رپورٹ ہوئیں۔" }
+    ]},
+    { name:"Padre Pio", nameUr:"پادرے پیو", tag:"1887–1968", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born Francesco Forgione in 1887 in southern Italy, Padre Pio joined the Capuchin Franciscans as a young man, struggling with chronic poor health that repeatedly interrupted his early training and nearly prevented his ordination.",
+        ur:"فرانچسکو فورجیونے، جو پادرے پیو کے نام سے مشہور ہوا، 1887 میں جنوبی اٹلی میں پیدا ہوا اور جوانی میں کیپوچن فرانسسکنز میں شامل ہوا، مگر خراب صحت کی وجہ سے اس کی تربیت بار بار متاثر ہوئی۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"In 1918, Padre Pio began bearing the stigmata, visible bleeding wounds resembling those of Christ's crucifixion, which persisted for fifty years and drew intense scrutiny and repeated investigation from Vatican authorities who at times restricted his public ministry. He endured these restrictions, along with chronic pain, with patience.",
+        ur:"1918 میں پادرے پیو کو مسیح کے زخموں جیسے نشانات ملنے لگے جو پچاس سال تک قائم رہے، جس نے شدید تحقیقات کو جنم دیا، اور ویٹیکن نے کبھی کبھار اس کی عوامی خدمت پر پابندیاں لگائیں، جنہیں اس نے صبر سے برداشت کیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Padre Pio became famous for spending up to fifteen hours a day hearing confessions, drawing pilgrims from around the world seeking spiritual counsel. He also founded a major hospital in his hometown of San Giovanni Rotondo, insisting that caring for the body and the soul went hand in hand.",
+        ur:"پادرے پیو دن میں پندرہ گھنٹے تک اعتراف سننے کے لیے مشہور ہوا۔ اس نے اپنے آبائی شہر میں ایک بڑا ہسپتال بھی قائم کیا، اس یقین کے ساتھ کہ جسم اور روح دونوں کی دیکھ بھال ضروری ہے۔" }
+    ]},
+    { name:"Teresa of Calcutta (Mother Teresa)", nameUr:"مدر تریسا", tag:"1910–1997", sections:[
+      { tEn:"Early Life & Calling", tUr:"ابتدائی زندگی اور بلاوا",
+        en:"Born Anjezë Gonxhe Bojaxhiu in 1910 in Skopje, to an Albanian Catholic family, she joined the Sisters of Loreto as a young woman and was sent to Calcutta, India, where she taught at a girls' school for nearly two decades.",
+        ur:"انجیزے گونژے بویاجیو، جو مدر تریسا کے نام سے مشہور ہوئیں، 1910 میں سکوپیے میں البانوی کیتھولک گھرانے میں پیدا ہوئیں، لوریٹو کی راہباؤں میں شامل ہوئیں اور کلکتہ بھیجی گئیں جہاں تقریباً بیس سال تک پڑھایا۔" },
+      { tEn:"Struggles & Trials", tUr:"آزمائشیں اور مصیبتیں",
+        en:"In 1946, during a train journey, Teresa described receiving an inner call to leave the convent and live directly among the poorest of the poor on the streets of Calcutta. Decades later, private letters revealed she experienced a prolonged, painful sense of God's absence for much of her ministry, even while continuing her public work without interruption.",
+        ur:"1946 میں ایک ٹرین کے سفر کے دوران تریسا نے خانقاہ چھوڑ کر کلکتہ کی سڑکوں پر غریب ترین لوگوں میں رہنے کی پکار محسوس کی۔ دہائیوں بعد نجی خطوط سے پتہ چلا کہ اس نے خدا کی غیابت کا طویل احساس برداشت کیا۔" },
+      { tEn:"Teachings & Legacy", tUr:"تعلیمات اور میراث",
+        en:"Teresa founded the Missionaries of Charity in 1950, devoted to caring for the dying, the sick, orphans, and the abandoned, which grew into a worldwide order. She taught that small acts of love done for ‘the least of these’ were acts done for Christ himself, and was canonized in 2016.",
+        ur:"تریسا نے 1950 میں مشنریز آف چیریٹی قائم کی، جو دنیا بھر کی تنظیم بن گئی۔ اس نے سکھایا کہ ‘سب سے چھوٹوں’ کے لیے کیے گئے چھوٹے کام مسیح کے لیے کیے گئے کام ہیں۔ اسے 2016 میں ولی قرار دیا گیا۔" }
+    ]}
+  ];
+
+  var STR = {
+    en: {
+      tagline: "Scripture, quizzed and read — word for word, unaltered.",
+      navHome:"Home", navQuiz:"Quiz", navBible:"Bible", navQuran:"Qur'an", navAsk:"Ask",
+      votdLabel:"Verse of the Day", votdLoading:"loading…",
+      homeLead:"Quiz yourself against the clock, read the Bible or the Qur'an cover to cover, or ask a question and get an answer straight from scripture.",
+      cardQuizTitle:"Take the Quiz", cardQuizDesc:"Timed trivia, fill-in-the-blank and name-the-book questions.",
+      cardBibleTitle:"Read the Bible", cardBibleDesc:"All 66 books, every chapter — World English Bible.",
+      cardQuranTitle:"Read the Qur'an", cardQuranDesc:"All 114 surahs — Pickthall English translation.",
+      cardAskTitle:"Ask a Question", cardAskDesc:"Type what's on your mind, get an answer as a verse.",
+      quizIntro:"Three kinds of questions, mixed together, each on a 15 second clock: trivia, fill-in-the-blank, and name-the-book — every verse pulled fresh and exact.",
+      quizBtn:"Begin the Timed Quiz",
+      scoreLabel:"Score", streakLabel:"Streak", bestLabel:"Best",
+      loadingText:"retrieving the text…",
+      trivia:"Trivia", fillBlank:"Fill the Blank", nameBook:"Name the Book",
+      timesUp:"Time's up — correct answer highlighted above.",
+      correct:"Correct.", notQuite:"Not quite — correct answer highlighted above.",
+      nextBtn:"Next →",
+      readerHintBible:"Tap any verse to highlight it for this session.",
+      readerHintQuran:"Tap any ayah to highlight it for this session.",
+      prevChapter:"← Previous chapter", nextChapter:"Next chapter →",
+      prevSurah:"← Previous surah", nextSurah:"Next surah →",
+      chapterErr:"Couldn't load this chapter right now. Check your connection and try again.",
+      surahErr:"Couldn't load this surah right now. Check your connection and try again.",
+      askLead:"Ask about a feeling, situation or topic — grief, fear, money, forgiveness, purpose — and get a real verse in response.",
+      askPlaceholder:"e.g. I'm feeling anxious about the future…", askBtn:"Ask",
+      answering:"In answer to:", fallback:"Couldn't find an exact topic — here's an encouraging word",
+      seeAlso:"See also:", askErr:"Couldn't reach the text right now. Check your connection and try again.",
+      footer1:"Bible text fetched live (World English Bible, public domain) via bible-api.com. Qur'an text fetched live (Pickthall translation, public domain) via alquran.cloud. Your highlights and last-read spot are saved and will still be here next time. Quiz scores reset each session. Trivia and topic answers are original, not quoted text.",
+      navSaints:"Saints", noteBtn:"Note", hlTitle:"Highlighter", hlSub:"Choose a color, then tap any verse.",
+      neonLabel:"Neon glow", hlCloseBtn:"Done",
+      lastRead:"Last read", continueBtn:"Continue", noLastRead:"You haven't read anything yet.",
+      shareBtn:"Share", shareCopied:"Copied to clipboard!",
+      saintsIntro:"The lives of 26 saints across the Church's history, each in three pages — their early life, their struggles, and what they taught.",
+      credit:"Developed by Aryan Ghulam Rasool · Built with Claude"
+    },
+    ur: {
+      tagline: "کلامِ مقدّس — لفظ بہ لفظ، بغیر کسی تبدیلی کے، پڑھیں اور جانچیں۔",
+      navHome:"ہوم", navQuiz:"کوئز", navBible:"بائبل", navQuran:"قرآن", navAsk:"سوال",
+      votdLabel:"آج کی آیت", votdLoading:"لوڈ ہو رہا ہے…",
+      homeLead:"وقت کے ساتھ اپنا امتحان لیں، بائبل یا قرآن مکمل طور پر پڑھیں، یا کوئی سوال پوچھیں اور کلامِ مقدّس سے جواب پائیں۔",
+      cardQuizTitle:"کوئز کھیلیں", cardQuizDesc:"ٹائم شدہ ٹریویا، خالی جگہ پر کریں، اور کتاب کا نام بتائیں والے سوالات۔",
+      cardBibleTitle:"بائبل پڑھیں", cardBibleDesc:"تمام 66 کتابیں، ہر باب — اردو ترجمہ۔",
+      cardQuranTitle:"قرآن پڑھیں", cardQuranDesc:"تمام 114 سورتیں — اردو ترجمہ۔",
+      cardAskTitle:"سوال پوچھیں", cardAskDesc:"جو دل میں ہے لکھیں، جواب ایک آیت کی صورت میں پائیں۔",
+      quizIntro:"تین طرح کے سوالات، ملا کر، ہر ایک پر 15 سیکنڈ کا وقت: ٹریویا، خالی جگہ پُر کریں، اور کتاب کا نام بتائیں — ہر آیت تازہ اور درست لائی جاتی ہے۔",
+      quizBtn:"ٹائم شدہ کوئز شروع کریں",
+      scoreLabel:"سکور", streakLabel:"لگاتار", bestLabel:"بہترین",
+      loadingText:"متن حاصل کیا جا رہا ہے…",
+      trivia:"ٹریویا", fillBlank:"خالی جگہ پُر کریں", nameBook:"کتاب کا نام بتائیں",
+      timesUp:"وقت ختم ہو گیا — درست جواب اوپر نمایاں ہے۔",
+      correct:"درست جواب۔", notQuite:"غلط جواب — درست جواب اوپر نمایاں ہے۔",
+      nextBtn:"اگلا ←",
+      readerHintBible:"کسی بھی آیت کو نمایاں کرنے کے لیے اس پر ٹچ کریں۔",
+      readerHintQuran:"کسی بھی آیت کو نمایاں کرنے کے لیے اس پر ٹچ کریں۔",
+      prevChapter:"→ پچھلا باب", nextChapter:"اگلا باب ←",
+      prevSurah:"→ پچھلی سورت", nextSurah:"اگلی سورت ←",
+      chapterErr:"یہ باب لوڈ نہیں ہو سکا۔ اپنا انٹرنیٹ چیک کر کے دوبارہ کوشش کریں۔",
+      surahErr:"یہ سورت لوڈ نہیں ہو سکی۔ اپنا انٹرنیٹ چیک کر کے دوبارہ کوشش کریں۔",
+      askLead:"اپنی کیفیت، حالات یا موضوع کے بارے میں پوچھیں — غم، خوف، پیسہ، معافی، مقصد — اور جواب میں ایک حقیقی آیت پائیں۔",
+      askPlaceholder:"مثلاً: میں مستقبل کے بارے میں پریشان ہوں…", askBtn:"پوچھیں",
+      answering:"جواب برائے:", fallback:"کوئی خاص موضوع نہیں ملا — یہ ایک حوصلہ افزا آیت ہے",
+      seeAlso:"مزید دیکھیں:", askErr:"ابھی متن حاصل نہیں ہو سکا۔ اپنا انٹرنیٹ چیک کریں۔",
+      footer1:"بائبل کا متن اردو ترجمہ سے حاصل کیا جاتا ہے۔ قرآن کا متن اردو ترجمہ (فتح محمد جالندھری) سے حاصل کیا جاتا ہے۔ آپ کی نمایاں کردہ آیات اور آخری مطالعہ محفوظ رہتے ہیں اور اگلی بار بھی موجود ہوں گے۔ کوئز کا سکور ہر سیشن میں ری سیٹ ہوتا ہے۔",
+      navSaints:"اولیاء", noteBtn:"نوٹ", hlTitle:"ہائی لائٹر", hlSub:"رنگ منتخب کریں، پھر کسی بھی آیت پر ٹچ کریں۔",
+      neonLabel:"نیون چمک", hlCloseBtn:"ہو گیا",
+      lastRead:"آخری مطالعہ", continueBtn:"جاری رکھیں", noLastRead:"ابھی تک کچھ نہیں پڑھا گیا۔",
+      shareBtn:"شیئر کریں", shareCopied:"کاپی ہو گیا!",
+      saintsIntro:"چرچ کی تاریخ کے 26 اولیاء کی زندگیاں، ہر ایک تین صفحات میں — ابتدائی زندگی، جدوجہد، اور تعلیمات۔",
+      credit:"تیار کردہ: آریان غلام رسول · Claude کی مدد سے"
+    }
+  };
+
+  var TIME_LIMIT = 15;
+
+  var state = {
+    lang: 'en',
+    tab: 'home',
+    score:0, total:0, streak:0, best:0,
+    triviaOrder: [], triviaIdx: 0, answered:false,
+    timerId:null, timeLeft:TIME_LIMIT,
+    quizStarted:false,
+    reader: { book:'Genesis', chapter:1 },
+    quran: { surah:1 },
+    highlights: {},
+    activeColor: 'yellow',
+    neon: false,
+    hlPanelOpen: false,
+    lastRead: { bible: null, quran: null },
+    votd: null
+  };
+  var HL_COLORS = ['yellow','green','pink','blue','orange','purple','red','teal','gold','gray'];
+
+  function T(){ return STR[state.lang]; }
+  function shuffledIndices(n){ var a=[]; for(var i=0;i<n;i++)a.push(i);
+    for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+  function shuffle(arr){ return shuffledIndices(arr.length).map(function(i){ return arr[i]; }); }
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function clearTimer(){ if(state.timerId){ clearInterval(state.timerId); state.timerId=null; } }
+  function el(id){ return document.getElementById(id); }
+
+  /* ---------------- Bible source: EN via bible-api.com, UR via wldeh CDN ---------------- */
+  function fetchBibleRefEN(ref){
+    var url = 'https://bible-api.com/' + encodeURIComponent(ref).replace(/%20/g,'+') + '?translation=web';
+    return fetch(url).then(function(r){ if(!r.ok) throw new Error('bad response'); return r.json(); });
+  }
+  function normalizeUrVerses(json){
+    if(json && Array.isArray(json.verses)) return json.verses.map(function(v){ return { verse: v.verse || v.verseNumber || v.number, text: v.text || v.verseText || '' }; });
+    if(json && json.data && Array.isArray(json.data.verses)) return json.data.verses.map(function(v){ return { verse: v.verse || v.verseNumber, text: v.text || '' }; });
+    if(Array.isArray(json)) return json.map(function(v,i){ return { verse: v.verse || v.verseNumber || (i+1), text: v.text || '' }; });
+    if(json && typeof json === 'object' && json.text){ return [{ verse: json.verse || 1, text: json.text }]; }
+    return [];
+  }
+  function fetchBibleChapterUR(book, chapter){
+    var slug = BOOK_SLUGS[book];
+    var url = 'https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/ur-Aran-urdgvu/books/' + slug + '/chapters/' + chapter + '.json';
+    return fetch(url).then(function(r){ if(!r.ok) throw new Error('bad response'); return r.json(); }).then(normalizeUrVerses);
+  }
+  function getChapterVerses(book, chapter){
+    if(state.lang === 'ur'){
+      return fetchBibleChapterUR(book, chapter);
+    }
+    return fetchBibleRefEN(book + ' ' + chapter).then(function(data){ return data.verses || []; });
+  }
+  function parseRef(ref){
+    var m = ref.match(/^(.*)\s(\d+):(\d+)(?:-(\d+))?$/);
+    if(!m) return null;
+    return { book: m[1], chapter: parseInt(m[2],10), vStart: parseInt(m[3],10), vEnd: m[4] ? parseInt(m[4],10) : parseInt(m[3],10) };
+  }
+  function getPassage(ref){
+    if(state.lang === 'en'){
+      return fetchBibleRefEN(ref).then(function(data){
+        return { text: (data.text||'').trim().replace(/\s+/g,' '), reference: data.reference || ref };
+      });
+    }
+    var p = parseRef(ref);
+    if(!p) return Promise.reject(new Error('bad ref'));
+    return fetchBibleChapterUR(p.book, p.chapter).then(function(verses){
+      var chosen = verses.filter(function(v){ return v.verse >= p.vStart && v.verse <= p.vEnd; });
+      if(!chosen.length) throw new Error('no verses in range');
+      var text = chosen.map(function(v){ return v.text.trim(); }).join(' ');
+      var bookUr = BOOK_NAMES_UR[p.book] || p.book;
+      var refDisplay = bookUr + ' ' + p.chapter + ':' + p.vStart + (p.vEnd!==p.vStart ? ('-'+p.vEnd) : '');
+      return { text: text, reference: refDisplay };
+    });
+  }
+
+  /* ---------------- NAV / LANG ---------------- */
+  function applyLangChrome(){
+    var t = T();
+    document.getElementById('shell').classList.toggle('rtl', state.lang==='ur');
+    Array.prototype.forEach.call(document.querySelectorAll('.langbtn'), function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang')===state.lang);
+    });
+    el('brand').innerHTML = '<h1>' + (state.lang==='ur' ? 'اپنا ایمان بڑھائیں' : 'INCREASE YOUR FAITH') + '</h1>' +
+      '<p>' + t.tagline + '</p>' +
+      '<div class="credit">' + t.credit + '</div>';
+    var navMap = { home:'🏠 '+t.navHome, quiz:'✎ '+t.navQuiz, bible:'✟ '+t.navBible, quran:'☾ '+t.navQuran, ask:'💬 '+t.navAsk, saints:'🕊 '+t.navSaints };
+    Array.prototype.forEach.call(el('topnav').children, function(b){
+      b.textContent = navMap[b.getAttribute('data-tab')];
+    });
+    el('footerNote').innerHTML = t.footer1 + '<br><strong style="color: var(--gold);">' +
+      (state.lang==='ur' ? 'اپنا ایمان بڑھائیں' : 'Increase Your Faith') + '</strong> — ' + t.credit + '.';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#langtoggle .langbtn'), function(btn){
+    btn.addEventListener('click', function(){
+      var newLang = btn.getAttribute('data-lang');
+      if(newLang === state.lang) return;
+      state.lang = newLang;
+      state.votd = null;
+      applyLangChrome();
+      renderTab();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#themetoggle .themebtn'), function(btn){
+    btn.addEventListener('click', function(){
+      var newTheme = btn.getAttribute('data-theme');
+      document.body.setAttribute('data-theme', newTheme);
+      Array.prototype.forEach.call(document.querySelectorAll('#themetoggle .themebtn'), function(b){
+        b.classList.toggle('active', b.getAttribute('data-theme')===newTheme);
+      });
+      vfSet('vf-theme', newTheme);
+    });
+  });
+  function vfSet(key, val){ try{ if(window.storage) window.storage.set(key, typeof val==='string'?val:JSON.stringify(val), false); }catch(e){} }
+  function vfGet(key){
+    try{
+      if(!window.storage) return Promise.resolve(null);
+      return window.storage.get(key, false).then(function(r){ return r ? r.value : null; }).catch(function(){ return null; });
+    }catch(e){ return Promise.resolve(null); }
+  }
+  (function initTheme(){
+    vfGet('vf-theme').then(function(saved){
+      var th = saved || 'dark';
+      document.body.setAttribute('data-theme', th);
+      Array.prototype.forEach.call(document.querySelectorAll('#themetoggle .themebtn'), function(b){
+        b.classList.toggle('active', b.getAttribute('data-theme')===th);
+      });
+    });
+  })();
+  Array.prototype.forEach.call(document.getElementById('topnav').children, function(btn){
+    btn.addEventListener('click', function(){
+      clearTimer();
+      state.tab = btn.getAttribute('data-tab');
+      setActiveTabUI();
+      renderTab();
+    });
+  });
+  function setActiveTabUI(){
+    Array.prototype.forEach.call(el('topnav').children, function(b){
+      b.classList.toggle('active', b.getAttribute('data-tab') === state.tab);
+    });
+  }
+
+  function renderTab(){
+    setActiveTabUI();
+    if(state.tab === 'home') renderHome();
+    else if(state.tab === 'quiz') renderQuizTab();
+    else if(state.tab === 'bible') renderBibleReader();
+    else if(state.tab === 'quran') renderQuranReader();
+    else if(state.tab === 'ask') renderAsk();
+    else if(state.tab === 'saints') renderSaints();
+  }
+
+  /* ---------------- HOME ---------------- */
+  function dayHash(){
+    var d = new Date();
+    var s = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+    var h = 0;
+    for(var i=0;i<s.length;i++){ h = ((h<<5) - h + s.charCodeAt(i)) | 0; }
+    return Math.abs(h);
+  }
+  function loadVerseOfDay(cb){
+    var h = dayHash();
+    var book = BOOK_NAMES[h % BOOK_NAMES.length];
+    var chapter = (Math.floor(h/7) % BOOKS[book]) + 1;
+    getChapterVerses(book, chapter).then(function(verses){
+      if(!verses.length) throw new Error('empty');
+      var v = verses[h % verses.length];
+      var bookLabel = state.lang==='ur' ? (BOOK_NAMES_UR[book]||book) : book;
+      state.votd = { book: bookLabel, chapter: v.chapter || chapter, verse: v.verse, text: v.text.trim().replace(/\s+/g,' ') };
+      cb();
+    }).catch(function(){ state.votd = null; cb(); });
+  }
+
+  function starsHtml(){
+    var s = '';
+    for(var i=0;i<26;i++){
+      var top = Math.random()*100, left = Math.random()*100, delay = (Math.random()*3.5).toFixed(2), size = (Math.random()<0.2)?3:2;
+      s += '<span class="star" style="top:'+top+'%;left:'+left+'%;animation-delay:'+delay+'s;width:'+size+'px;height:'+size+'px;"></span>';
+    }
+    return s;
+  }
+  function renderHome(){
+    clearTimer();
+    var t = T();
+    el('page').innerHTML =
+      '<div class="holywrap"><div class="stars">' + starsHtml() + '</div>' +
+        '<div class="holy-symbol">✟ ☾ ✦</div>' +
+        '<div class="votd" id="votdBox" style="background:transparent;border:none;margin-bottom:0;position:relative;z-index:1;"><div class="eyebrow">' + t.votdLabel + '</div>' +
+        (state.votd ?
+          '<p class="vtext">"' + escapeHtml(state.votd.text) + '"</p><div class="vref">' + escapeHtml(state.votd.book) + ' ' + state.votd.chapter + ':' + state.votd.verse + '</div>' :
+          '<div class="loading" style="padding:10px 0;"><span class="flame">🕯</span> ' + t.votdLoading + '</div>') +
+        '</div>' +
+        '<div class="holy-divider"><span>✦</span></div>' +
+      '</div>' +
+      '<p class="lead">' + t.homeLead + '</p>' +
+      '<div class="cardgrid">' +
+        '<button type="button" class="mode-card" id="goQuiz"><div class="glyph">?</div><div class="txt"><h3>' + t.cardQuizTitle + '</h3><p>' + t.cardQuizDesc + '</p></div></button>' +
+        '<button type="button" class="mode-card" id="goBible"><div class="glyph">✟</div><div class="txt"><h3>' + t.cardBibleTitle + '</h3><p>' + t.cardBibleDesc + '</p></div></button>' +
+        '<button type="button" class="mode-card" id="goQuran"><div class="glyph">☾</div><div class="txt"><h3>' + t.cardQuranTitle + '</h3><p>' + t.cardQuranDesc + '</p></div></button>' +
+        '<button type="button" class="mode-card" id="goAsk"><div class="glyph">✎</div><div class="txt"><h3>' + t.cardAskTitle + '</h3><p>' + t.cardAskDesc + '</p></div></button>' +
+        '<button type="button" class="mode-card" id="goSaints"><div class="glyph">🕊</div><div class="txt"><h3>' + t.navSaints + '</h3><p>' + t.saintsIntro + '</p></div></button>' +
+      '</div>';
+    if(!state.votd){ loadVerseOfDay(function(){ if(state.tab==='home') renderHome(); }); }
+    el('goQuiz').addEventListener('click', function(){ state.tab='quiz'; setActiveTabUI(); renderTab(); });
+    el('goBible').addEventListener('click', function(){ state.tab='bible'; setActiveTabUI(); renderTab(); });
+    el('goQuran').addEventListener('click', function(){ state.tab='quran'; setActiveTabUI(); renderTab(); });
+    el('goAsk').addEventListener('click', function(){ state.tab='ask'; setActiveTabUI(); renderTab(); });
+    el('goSaints').addEventListener('click', function(){ state.tab='saints'; setActiveTabUI(); renderTab(); });
+  }
+
+  /* ---------------- QUIZ ---------------- */
+  function renderQuizTab(){
+    var t = T();
+    if(!state.quizStarted){
+      el('page').innerHTML =
+        '<p class="lead">' + t.quizIntro + '</p>' +
+        '<button class="btn-primary" id="startBtn">' + t.quizBtn + '</button>';
+      el('startBtn').addEventListener('click', function(){
+        state.score=0; state.total=0; state.streak=0; state.best=0; state.quizStarted=true;
+        nextQuestion();
+      });
+      return;
+    }
+    nextQuestion();
+  }
+
+  function renderLoadingInPage(){
+    el('page').innerHTML = '<div class="loading"><span class="flame">🕯</span> ' + T().loadingText + '</div>';
+  }
+
+  function fetchRandomVerse(){
+    var book = pick(BOOK_NAMES);
+    var chapter = 1 + Math.floor(Math.random()*BOOKS[book]);
+    return getChapterVerses(book, chapter).then(function(verses){
+      if(!verses.length) throw new Error('no verses');
+      var candidates = verses.filter(function(v){ return v.text && v.text.trim().split(/\s+/).length >= 5; });
+      if(!candidates.length) candidates = verses;
+      var v = pick(candidates);
+      var bookLabel = state.lang==='ur' ? (BOOK_NAMES_UR[book]||book) : book;
+      return { book: bookLabel, bookKey: book, chapter: v.chapter || chapter, verse: v.verse, text: v.text.trim().replace(/\s+/g,' ') };
+    });
+  }
+
+  function nextQuestion(){
+    state.answered = false; clearTimer();
+    var type = pick(['trivia','blank','reference']);
+    if(type === 'trivia'){ renderTrivia(); return; }
+    renderLoadingInPage();
+    fetchRandomVerse().then(function(v){
+      if(type === 'blank') renderBlank(v); else renderReference(v);
+    }).catch(function(){ renderTrivia(); });
+  }
+
+  function startTimer(onExpire){
+    state.timeLeft = TIME_LIMIT; paintTimer();
+    state.timerId = setInterval(function(){
+      state.timeLeft--; paintTimer();
+      if(state.timeLeft <= 0){ clearTimer(); onExpire(); }
+    }, 1000);
+  }
+  function paintTimer(){
+    var bar = el('timerbar'), num = el('timernum');
+    if(!bar) return;
+    var pct = Math.max(0, (state.timeLeft / TIME_LIMIT) * 100);
+    bar.style.width = pct + '%';
+    bar.style.background = state.timeLeft <= 5 ? 'linear-gradient(90deg, var(--wrong), #8a2e2e)' : 'linear-gradient(90deg, var(--gold), #8a5a1c)';
+    if(num) num.textContent = state.timeLeft + 's';
+  }
+  function timerHtml(){
+    return '<div class="timerwrap"><div class="timerbar-bg"><div class="timerbar" id="timerbar" style="width:100%"></div></div>' +
+      '<div class="timernum" id="timernum">' + TIME_LIMIT + 's</div></div>';
+  }
+  function statHtml(){
+    var t = T();
+    return '<div class="statbar"><div>' + t.scoreLabel + ' <b>' + state.score + '/' + state.total + '</b></div>' +
+      '<div>' + t.streakLabel + ' <b>' + state.streak + '</b></div><div>' + t.bestLabel + ' <b>' + state.best + '</b></div></div>';
+  }
+
+  function renderTrivia(){
+    var t = T();
+    var TRIVIA = state.lang==='ur' ? TRIVIA_UR : TRIVIA_EN;
+    if(state.triviaIdx >= state.triviaOrder.length || state.triviaOrder.length !== TRIVIA.length){ state.triviaOrder = shuffledIndices(TRIVIA.length); state.triviaIdx = 0; }
+    var q = TRIVIA[state.triviaOrder[state.triviaIdx++]];
+    var question=q[0], options=q[1], correctIdx=q[2];
+    var order = shuffle(options.map(function(o,i){ return i; }));
+    el('page').innerHTML = statHtml() +
+      '<div class="qcard">' + timerHtml() + '<span class="qtag">' + t.trivia + '</span>' +
+      '<div class="question-text">' + escapeHtml(question) + '</div>' +
+      '<div class="options" id="opts"></div><div class="feedback" id="fb"></div></div>';
+    var optsEl = el('opts');
+    order.forEach(function(origIdx){
+      var btn = document.createElement('button'); btn.className='opt'; btn.textContent = options[origIdx];
+      btn.addEventListener('click', function(){
+        handleAnswer(origIdx===correctIdx, btn, function(){ highlightCorrect(optsEl, options[correctIdx]); });
+      });
+      optsEl.appendChild(btn);
+    });
+    startTimer(function(){ handleAnswer(false, null, function(){ highlightCorrect(optsEl, options[correctIdx]); }, true); });
+  }
+
+  function renderBlank(v){
+    var t = T();
+    var words = v.text.split(' ');
+    var candidates = words.map(function(w,i){ return {w:w,i:i}; }).filter(function(o){ return o.w.replace(/[^A-Za-z\u0600-\u06FF]/g,'').length>=3; });
+    if(!candidates.length){ renderTrivia(); return; }
+    var target = pick(candidates);
+    var cleanWord = target.w.replace(/[^A-Za-z\u0600-\u06FF]/g,'');
+    var displayWords = words.slice(); displayWords[target.i] = '_____';
+    var blanked = displayWords.join(' ');
+    var pool = (state.lang==='ur' ? WORD_POOL.ur : WORD_POOL.en).filter(function(w){ return w.toLowerCase()!==cleanWord.toLowerCase(); });
+    var options = shuffle([cleanWord].concat(shuffle(pool).slice(0,3)));
+    el('page').innerHTML = statHtml() +
+      '<div class="qcard">' + timerHtml() +
+      '<span class="qtag">' + t.fillBlank + ' &middot; ' + escapeHtml(v.book) + ' ' + v.chapter + ':' + v.verse + '</span>' +
+      '<span class="drop">' + escapeHtml(blanked.charAt(0)) + '</span>' +
+      '<p class="verse-text">' + escapeHtml(blanked.slice(1)) + '</p>' +
+      '<div class="options" id="opts"></div><div class="feedback" id="fb"></div></div>';
+    var optsEl = el('opts');
+    options.forEach(function(opt){
+      var btn = document.createElement('button'); btn.className='opt'; btn.textContent=opt;
+      btn.addEventListener('click', function(){
+        var isCorrect = opt.toLowerCase()===cleanWord.toLowerCase();
+        handleAnswer(isCorrect, btn, function(){ highlightCorrect(optsEl, cleanWord, true); });
+      });
+      optsEl.appendChild(btn);
+    });
+    startTimer(function(){ handleAnswer(false, null, function(){ highlightCorrect(optsEl, cleanWord, true); }, true); });
+  }
+
+  function renderReference(v){
+    var t = T();
+    var namesPool = state.lang==='ur' ? BOOK_NAMES.map(function(b){ return BOOK_NAMES_UR[b]; }) : BOOK_NAMES.slice();
+    var others = shuffle(namesPool.filter(function(b){ return b!==v.book; })).slice(0,3);
+    var options = shuffle([v.book].concat(others));
+    el('page').innerHTML = statHtml() +
+      '<div class="qcard">' + timerHtml() + '<span class="qtag">' + t.nameBook + '</span>' +
+      '<span class="drop">' + escapeHtml(v.text.charAt(0)) + '</span>' +
+      '<p class="verse-text">' + escapeHtml(v.text.slice(1)) + '</p>' +
+      '<div class="ref-tag" id="refReveal" style="visibility:hidden;">' + escapeHtml(v.book) + ' ' + v.chapter + ':' + v.verse + '</div>' +
+      '<div class="options" id="opts"></div><div class="feedback" id="fb"></div></div>';
+    var optsEl = el('opts');
+    options.forEach(function(opt){
+      var btn = document.createElement('button'); btn.className='opt'; btn.textContent=opt;
+      btn.addEventListener('click', function(){
+        var isCorrect = opt === v.book;
+        el('refReveal').style.visibility = 'visible';
+        handleAnswer(isCorrect, btn, function(){ highlightCorrect(optsEl, v.book); });
+      });
+      optsEl.appendChild(btn);
+    });
+    startTimer(function(){
+      el('refReveal').style.visibility = 'visible';
+      handleAnswer(false, null, function(){ highlightCorrect(optsEl, v.book); }, true);
+    });
+  }
+
+  function highlightCorrect(optsEl, correctText, ci){
+    Array.prototype.forEach.call(optsEl.children, function(b){
+      var match = ci ? b.textContent.toLowerCase()===correctText.toLowerCase() : b.textContent===correctText;
+      if(match) b.classList.add('correct');
+    });
+  }
+
+  function handleAnswer(isCorrect, btn, revealFn, timedOut){
+    if(state.answered) return;
+    state.answered = true; clearTimer(); state.total++;
+    var t = T();
+    if(isCorrect){ state.score++; state.streak++; if(state.streak>state.best) state.best=state.streak; if(btn) btn.classList.add('correct'); }
+    else { state.streak = 0; if(btn) btn.classList.add('wrong'); }
+    revealFn();
+    var sb = document.querySelector('.statbar');
+    if(sb) sb.outerHTML = statHtml();
+    Array.prototype.forEach.call(el('opts').children, function(b){ b.disabled = true; });
+    var fb = el('fb');
+    fb.classList.add('show', isCorrect ? 'good' : 'bad');
+    fb.textContent = timedOut ? t.timesUp : (isCorrect ? t.correct : t.notQuite);
+    var cont = document.createElement('button');
+    cont.className = 'btn-primary'; cont.style.marginTop = '18px'; cont.textContent = t.nextBtn;
+    cont.addEventListener('click', nextQuestion);
+    document.querySelector('.qcard').appendChild(cont);
+  }
+
+  /* ---------------- BIBLE READER ---------------- */
+  function bookOptionsHtml(sel){
+    return BOOK_NAMES.map(function(b){
+      var label = state.lang==='ur' ? (BOOK_NAMES_UR[b]||b) : b;
+      return '<option value="'+escapeHtml(b)+'"'+(b===sel?' selected':'')+'>'+escapeHtml(label)+'</option>';
+    }).join('');
+  }
+  function chapterOptionsHtml(count, sel){
+    var word = state.lang==='ur' ? 'باب' : 'Chapter';
+    var o=''; for(var i=1;i<=count;i++) o+='<option value="'+i+'"'+(i===sel?' selected':'')+'>'+word+' '+i+'</option>'; return o;
+  }
+
+  /* ---------------- Note FAB + 3D highlighter panel (shared by Bible & Quran) ---------------- */
+  function noteTopbarHtml(){
+    return '<div class="reader-topbar">' +
+        '<button type="button" class="notefab" id="noteFabBtn"><span class="pencap hl-' + state.activeColor + '"></span>' + T().noteBtn + ' ✎</button>' +
+        '<div class="hlpanel" id="hlPanel" style="display:none;"></div>' +
+      '</div>';
+  }
+  function hlPanelInnerHtml(showClose){
+    var t = T();
+    var swatches = HL_COLORS.map(function(c){
+      return '<button type="button" class="hlswatch hl-' + c + (state.activeColor===c?' active':'') + '" data-color="' + c + '" aria-label="' + c + '"></button>';
+    }).join('');
+    return '<div class="hlpanel-title">' + t.hlTitle + '</div>' +
+      '<div class="hlpanel-sub">' + t.hlSub + '</div>' +
+      '<div class="pen3d' + (state.neon ? ' neonpen' : '') + '" id="pen3d" style="--pen: var(--pen-' + state.activeColor + ',212,167,61);">' +
+        '<div class="body"><div class="cap"></div><div class="barrel"></div><div class="tip"></div></div>' +
+      '</div>' +
+      '<div class="hlcolors">' + swatches + '</div>' +
+      '<div class="neonrow"><span>✨ ' + t.neonLabel + '</span><div class="switch' + (state.neon?' on':'') + '" id="neonSwitch"><div class="knob"></div></div></div>' +
+      (showClose ? '<button type="button" class="hlclose" id="hlCloseBtn">' + t.hlCloseBtn + '</button>' : '');
+  }
+  var HL_RGB = { yellow:'255,224,89', green:'120,224,120', pink:'255,140,190', blue:'110,180,255', orange:'255,158,66',
+    purple:'190,130,255', red:'255,99,99', teal:'80,220,200', gold:'224,180,60', gray:'190,190,200' };
+  function wireSwatchesIn(container, onChange){
+    container.style.setProperty('--pen-' + state.activeColor, HL_RGB[state.activeColor]);
+    var pen = container.querySelector('#pen3d'); if(pen) pen.style.setProperty('--pen', HL_RGB[state.activeColor]);
+    Array.prototype.forEach.call(container.querySelectorAll('.hlswatch'), function(sw){
+      sw.addEventListener('click', function(){
+        state.activeColor = sw.getAttribute('data-color');
+        if(onChange) onChange();
+      });
+    });
+    var neonSw = container.querySelector('#neonSwitch');
+    if(neonSw) neonSw.addEventListener('click', function(){ state.neon = !state.neon; if(onChange) onChange(); });
+  }
+  function refreshHlPanel(){
+    var panel = el('hlPanel');
+    if(!panel) return;
+    panel.innerHTML = hlPanelInnerHtml(true);
+    wireSwatchesIn(panel, refreshHlPanel);
+    var fab = document.querySelector('.pencap');
+    if(fab){ HL_COLORS.forEach(function(c){ fab.classList.remove('hl-'+c); }); fab.classList.add('hl-'+state.activeColor); }
+    var closeBtn = el('hlCloseBtn');
+    if(closeBtn) closeBtn.addEventListener('click', function(){ panel.style.display='none'; state.hlPanelOpen=false; });
+  }
+  function bindNoteTopbar(){
+    var fabBtn = el('noteFabBtn');
+    if(!fabBtn) return;
+    fabBtn.addEventListener('click', function(){
+      state.hlPanelOpen = !state.hlPanelOpen;
+      var panel = el('hlPanel');
+      panel.style.display = state.hlPanelOpen ? 'block' : 'none';
+      if(state.hlPanelOpen) refreshHlPanel();
+    });
+  }
+
+  /* Verse-triggered highlighter modal ("Note") */
+  function openVerseNoteModal(key, refLabel, preview, onDone){
+    var existing = state.highlights[key];
+    if(existing){ state.activeColor = existing.color; state.neon = existing.neon; }
+    closeVerseNoteModal();
+    var t = T();
+    var overlay = document.createElement('div');
+    overlay.className = 'notemodal-overlay';
+    overlay.id = 'noteModalOverlay';
+    overlay.innerHTML =
+      '<div class="notemodal" id="noteModal">' +
+        '<div class="answer-q" style="color:var(--gold);margin-bottom:2px;">' + escapeHtml(refLabel) + '</div>' +
+        '<div class="notemodal-preview">' + escapeHtml(preview) + '</div>' +
+        '<div id="noteModalPanelInner"></div>' +
+        '<div class="notemodal-actions">' +
+          '<button type="button" class="btn-primary" id="applyHlBtn">' + (state.lang==='ur'?'ہائی لائٹ لگائیں':'Apply Highlight') + '</button>' +
+          (existing ? '<button type="button" class="removebtn" id="removeHlBtn">' + (state.lang==='ur'?'ہائی لائٹ ہٹائیں':'Remove Highlight') + '</button>' : '') +
+          '<button type="button" class="hlclose" id="cancelHlBtn">' + (state.lang==='ur'?'منسوخ':'Cancel') + '</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    var inner = el('noteModalPanelInner');
+    function paintModalPanel(){ inner.innerHTML = hlPanelInnerHtml(false); wireSwatchesIn(inner, paintModalPanel); }
+    paintModalPanel();
+
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeVerseNoteModal(); });
+    el('cancelHlBtn').addEventListener('click', closeVerseNoteModal);
+    el('applyHlBtn').addEventListener('click', function(){
+      state.highlights[key] = { color: state.activeColor, neon: state.neon };
+      vfSet('vf-highlights', JSON.stringify(state.highlights));
+      closeVerseNoteModal();
+      if(onDone) onDone(true);
+    });
+    var removeBtn = el('removeHlBtn');
+    if(removeBtn) removeBtn.addEventListener('click', function(){
+      delete state.highlights[key];
+      vfSet('vf-highlights', JSON.stringify(state.highlights));
+      closeVerseNoteModal();
+      if(onDone) onDone(false);
+    });
+  }
+  function closeVerseNoteModal(){
+    var overlay = el('noteModalOverlay');
+    if(overlay) overlay.remove();
+  }
+
+  function shareVerse(text, ref, btnEl){
+    var shareText = '"' + text + '" — ' + ref + ' · Increase Your Faith';
+    var t = T();
+    if(navigator.share){
+      navigator.share({ text: shareText }).catch(function(){});
+    } else if(navigator.clipboard){
+      navigator.clipboard.writeText(shareText).then(function(){
+        if(btnEl){ var orig = btnEl.textContent; btnEl.textContent = '✓'; setTimeout(function(){ btnEl.textContent = orig; }, 1400); }
+      }).catch(function(){});
+    }
+  }
+
+  function lastReadStripHtml(saved, kind){
+    var t = T();
+    if(!saved) return '<div class="lastread">' + t.noLastRead + '</div>';
+    var label, chapterWord = state.lang==='ur' ? 'باب' : 'Chapter';
+    if(kind==='bible'){
+      var bookLabel = state.lang==='ur' ? (BOOK_NAMES_UR[saved.book]||saved.book) : saved.book;
+      label = bookLabel + ' ' + saved.chapter;
+    } else {
+      label = (SURAHS[saved.surah-1] || saved.surah);
+    }
+    return '<div class="lastread"><span>' + t.lastRead + ': <b>' + escapeHtml(label) + '</b></span>' +
+      '<button type="button" id="continueReadBtn">' + t.continueBtn + '</button></div>';
+  }
+
+  function renderBibleReader(){
+    clearTimer();
+    state.hlPanelOpen = false;
+    var t = T();
+    var r = state.reader;
+    el('page').innerHTML =
+      noteTopbarHtml() +
+      '<div class="reader-controls">' +
+        '<select id="bookSel">' + bookOptionsHtml(r.book) + '</select>' +
+        '<select id="chapSel">' + chapterOptionsHtml(BOOKS[r.book], r.chapter) + '</select>' +
+      '</div>' +
+      '<div class="navrow">' +
+        '<button type="button" class="navbtn" id="prevBtn">' + t.prevChapter + '</button>' +
+        '<button type="button" class="navbtn" id="nextBtn">' + t.nextChapter + '</button>' +
+      '</div>' +
+      '<p class="reader-hint">' + t.readerHintBible + '</p>' +
+      '<div id="readerCard"><div class="loading"><span class="flame">🕯</span> ' + t.loadingText + '</div></div>' +
+      '<div id="lastReadBox"></div>';
+    bindNoteTopbar();
+
+    el('bookSel').addEventListener('change', function(e){ r.book = e.target.value; r.chapter = 1; renderBibleReader(); });
+    el('chapSel').addEventListener('change', function(e){ r.chapter = parseInt(e.target.value,10); renderBibleReader(); });
+    el('prevBtn').addEventListener('click', function(){
+      var idx = BOOK_NAMES.indexOf(r.book);
+      if(r.chapter>1){ r.chapter--; } else if(idx>0){ r.book = BOOK_NAMES[idx-1]; r.chapter = BOOKS[r.book]; }
+      renderBibleReader();
+    });
+    el('nextBtn').addEventListener('click', function(){
+      var idx = BOOK_NAMES.indexOf(r.book);
+      if(r.chapter<BOOKS[r.book]){ r.chapter++; } else if(idx<BOOK_NAMES.length-1){ r.book = BOOK_NAMES[idx+1]; r.chapter = 1; }
+      renderBibleReader();
+    });
+    var idx2 = BOOK_NAMES.indexOf(r.book);
+    el('prevBtn').disabled = (r.chapter===1 && idx2===0);
+    el('nextBtn').disabled = (r.chapter===BOOKS[r.book] && idx2===BOOK_NAMES.length-1);
+
+    vfGet('vf-lastread-bible').then(function(raw){
+      var saved = null; try{ saved = raw ? JSON.parse(raw) : null; }catch(e){}
+      var box = el('lastReadBox');
+      if(!box) return;
+      box.innerHTML = lastReadStripHtml(saved, 'bible');
+      var cbtn = el('continueReadBtn');
+      if(cbtn && saved){ cbtn.addEventListener('click', function(){ r.book = saved.book; r.chapter = saved.chapter; renderBibleReader(); }); }
+    });
+
+    getChapterVerses(r.book, r.chapter).then(function(verses){
+      paintBibleChapter(verses);
+      vfSet('vf-lastread-bible', JSON.stringify({ book: r.book, chapter: r.chapter }));
+    }).catch(function(){
+      el('readerCard').innerHTML = '<div class="reader-card"><p>' + t.chapterErr + '</p>' +
+        '<div class="navrow"><button type="button" class="navbtn" id="retryBtn">↻ ' + (state.lang==='ur'?'دوبارہ کوشش کریں':'Try again') + '</button>' +
+        (state.lang==='ur' ? '<button type="button" class="navbtn" id="switchEnBtn">English میں دیکھیں</button>' : '') + '</div></div>';
+      var rb = el('retryBtn'); if(rb) rb.addEventListener('click', renderBibleReader);
+      var sb = el('switchEnBtn'); if(sb) sb.addEventListener('click', function(){ state.lang='en'; applyLangChrome(); renderBibleReader(); });
+    });
+  }
+
+  function paintBibleChapter(verses){
+    var t = T();
+    var r = state.reader;
+    var titleLabel = state.lang==='ur' ? (BOOK_NAMES_UR[r.book]||r.book) : r.book;
+    var html = '<div class="reader-card"><h2 class="reader-title">' + escapeHtml(titleLabel) + ' ' + r.chapter + '</h2>';
+    verses.forEach(function(v){
+      var key = 'bible|' + r.book + '|' + r.chapter + '|' + v.verse;
+      var hlData = state.highlights[key];
+      var hlClass = hlData ? (' highlighted hl-' + hlData.color + (hlData.neon ? ' neon' : '')) : '';
+      var refLabel = titleLabel + ' ' + r.chapter + ':' + v.verse;
+      var shareIcon = hlData ? '<span class="shareicon" data-share-key="'+key+'" data-ref="'+escapeHtml(refLabel)+'" title="' + t.shareBtn + '">↗</span>' : '';
+      html += '<p class="reader-verse'+hlClass+'" data-key="'+key+'" data-ref="'+escapeHtml(refLabel)+'" data-text="'+escapeHtml(v.text.trim())+'" tabindex="0"><span class="vnum">' + v.verse + '</span>' + escapeHtml(v.text.trim()) + shareIcon + '</p>';
+    });
+    html += '</div>';
+    el('readerCard').innerHTML = html;
+    attachHighlightHandlers(function(){ paintBibleChapter(verses); });
+  }
+
+  /* ---------------- QURAN READER ---------------- */
+  function surahOptionsHtml(sel){ return SURAHS.map(function(name,i){ var n=i+1; return '<option value="'+n+'"'+(n===sel?' selected':'')+'>'+n+'. '+escapeHtml(name)+'</option>'; }).join(''); }
+
+  function renderQuranReader(){
+    clearTimer();
+    state.hlPanelOpen = false;
+    var t = T();
+    var r = state.quran;
+    el('page').innerHTML =
+      noteTopbarHtml() +
+      '<div class="reader-controls"><select id="surahSel">' + surahOptionsHtml(r.surah) + '</select></div>' +
+      '<div class="navrow">' +
+        '<button type="button" class="navbtn" id="prevBtn">' + t.prevSurah + '</button>' +
+        '<button type="button" class="navbtn" id="nextBtn">' + t.nextSurah + '</button>' +
+      '</div>' +
+      '<p class="reader-hint">' + t.readerHintQuran + '</p>' +
+      '<div id="readerCard"><div class="loading"><span class="flame">🕯</span> ' + t.loadingText + '</div></div>' +
+      '<div id="lastReadBox"></div>';
+    bindNoteTopbar();
+
+    el('surahSel').addEventListener('change', function(e){ r.surah = parseInt(e.target.value,10); renderQuranReader(); });
+    el('prevBtn').addEventListener('click', function(){ if(r.surah>1){ r.surah--; renderQuranReader(); } });
+    el('nextBtn').addEventListener('click', function(){ if(r.surah<114){ r.surah++; renderQuranReader(); } });
+    el('prevBtn').disabled = (r.surah<=1);
+    el('nextBtn').disabled = (r.surah>=114);
+
+    vfGet('vf-lastread-quran').then(function(raw){
+      var saved = null; try{ saved = raw ? JSON.parse(raw) : null; }catch(e){}
+      var box = el('lastReadBox');
+      if(!box) return;
+      box.innerHTML = lastReadStripHtml(saved, 'quran');
+      var cbtn = el('continueReadBtn');
+      if(cbtn && saved){ cbtn.addEventListener('click', function(){ r.surah = saved.surah; renderQuranReader(); }); }
+    });
+
+    var edition = state.lang==='ur' ? 'ur.jalandhry' : 'en.pickthall';
+    fetch('https://api.alquran.cloud/v1/surah/' + r.surah + '/' + edition)
+      .then(function(res){ if(!res.ok) throw new Error('bad'); return res.json(); })
+      .then(function(json){
+        paintQuranSurah(json.data);
+        vfSet('vf-lastread-quran', JSON.stringify({ surah: r.surah }));
+      }).catch(function(){
+        el('readerCard').innerHTML = '<div class="reader-card"><p>' + t.surahErr + '</p>' +
+          '<div class="navrow"><button type="button" class="navbtn" id="retryBtn">↻ ' + (state.lang==='ur'?'دوبارہ کوشش کریں':'Try again') + '</button></div></div>';
+        var rb = el('retryBtn'); if(rb) rb.addEventListener('click', renderQuranReader);
+      });
+  }
+
+  function paintQuranSurah(d){
+    var t = T();
+    var r = state.quran;
+    var subtitle = d.englishNameTranslation ? ' <span style="font-family:\'JetBrains Mono\',monospace;font-size:0.68rem;color:#8a7238;">(' + escapeHtml(d.englishNameTranslation) + ')</span>' : '';
+    var html = '<div class="reader-card"><h2 class="reader-title">' + d.number + '. ' + escapeHtml(d.englishName) + subtitle + '</h2>';
+    (d.ayahs||[]).forEach(function(a){
+      var key = 'quran|' + r.surah + '|' + a.numberInSurah;
+      var hlData = state.highlights[key];
+      var hlClass = hlData ? (' highlighted hl-' + hlData.color + (hlData.neon ? ' neon' : '')) : '';
+      var refLabel = d.englishName + ' ' + a.numberInSurah;
+      var shareIcon = hlData ? '<span class="shareicon" data-share-key="'+key+'" data-ref="'+escapeHtml(refLabel)+'" title="' + t.shareBtn + '">↗</span>' : '';
+      html += '<p class="reader-verse'+hlClass+'" data-key="'+key+'" data-ref="'+escapeHtml(refLabel)+'" data-text="'+escapeHtml(a.text.trim())+'" tabindex="0"><span class="vnum">' + a.numberInSurah + '</span>' + escapeHtml(a.text.trim()) + shareIcon + '</p>';
+    });
+    html += '</div>';
+    el('readerCard').innerHTML = html;
+    attachHighlightHandlers(function(){ paintQuranSurah(d); });
+  }
+
+  function attachHighlightHandlers(repaint){
+    Array.prototype.forEach.call(document.querySelectorAll('.reader-verse'), function(p){
+      p.addEventListener('click', function(e){
+        if(e.target && e.target.classList && e.target.classList.contains('shareicon')){
+          e.stopPropagation();
+          shareVerse(p.getAttribute('data-text'), e.target.getAttribute('data-ref'), e.target);
+          return;
+        }
+        var key = p.getAttribute('data-key');
+        var refLabel = p.getAttribute('data-ref');
+        var preview = p.getAttribute('data-text');
+        openVerseNoteModal(key, refLabel, preview, function(wasApplied){
+          if(repaint) repaint();
+          if(wasApplied){
+            var fresh = document.querySelector('.reader-verse[data-key="' + key.replace(/"/g,'') + '"]');
+            if(fresh){ fresh.classList.add('sweep'); setTimeout(function(){ fresh.classList.remove('sweep'); }, 500); }
+          }
+        });
+      });
+      p.addEventListener('keypress', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); p.click(); } });
+    });
+  }
+
+  /* ---------------- ASK ---------------- */
+  function matchTopic(question){
+    var q = question.toLowerCase();
+    var best = null, bestScore = 0;
+    TOPICS.forEach(function(top){
+      var score = 0;
+      top.kw.forEach(function(k){ if(q.indexOf(k.toLowerCase()) !== -1) score++; });
+      if(score > bestScore){ bestScore = score; best = top; }
+    });
+    return best;
+  }
+
+  function renderAsk(){
+    clearTimer();
+    var t = T();
+    el('page').innerHTML =
+      '<p class="lead">' + t.askLead + '</p>' +
+      '<div class="askbox"><input type="text" id="askInput" placeholder="' + escapeHtml(t.askPlaceholder) + '">' +
+        '<button id="askBtn">' + t.askBtn + '</button></div>' +
+      '<div class="chips" id="chips"></div>' +
+      '<div id="askResult"></div>';
+    var chipsEl = el('chips');
+    CHIPS.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = 'chip'; b.textContent = state.lang==='ur' ? c.ur : c.en;
+      b.addEventListener('click', function(){ el('askInput').value = state.lang==='ur' ? c.fillUr : c.fillEn; submitAsk(); });
+      chipsEl.appendChild(b);
+    });
+    el('askBtn').addEventListener('click', submitAsk);
+    el('askInput').addEventListener('keypress', function(e){ if(e.key==='Enter') submitAsk(); });
+  }
+
+  function submitAsk(){
+    var t = T();
+    var q = el('askInput').value.trim();
+    if(!q) return;
+    var topic = matchTopic(q);
+    var usedFallback = !topic;
+    var refs = topic ? topic.refs : FALLBACK_REFS;
+    var ref = pick(refs);
+    el('askResult').innerHTML = '<div class="loading"><span class="flame">🕯</span> ' + t.loadingText + '</div>';
+    getPassage(ref).then(function(res){
+      var altRefs = refs.filter(function(r){ return r !== ref; });
+      el('askResult').innerHTML =
+        '<div class="answer-card">' +
+          '<div class="answer-q">' + (usedFallback ? t.fallback : t.answering + ' "' + escapeHtml(q) + '"') + '</div>' +
+          '<p class="answer-text">"' + escapeHtml(res.text) + '"</p>' +
+          '<div class="answer-ref">' + escapeHtml(res.reference) + '</div>' +
+          (altRefs.length ? '<div class="answer-alt">' + t.seeAlso + ' ' + altRefs.map(escapeHtml).join(' · ') + '</div>' : '') +
+        '</div>';
+    }).catch(function(){
+      el('askResult').innerHTML = '<div class="answer-card"><p>' + t.askErr + '</p></div>';
+    });
+  }
+
+  /* ---------------- SAINTS / HISTORY ---------------- */
+  function renderSaints(){
+    clearTimer();
+    var t = T();
+    var html = '<p class="lead">' + t.saintsIntro + '</p><div id="saintsList">';
+    SAINTS.forEach(function(s, i){
+      var label = state.lang==='ur' ? (s.nameUr || s.name) : s.name;
+      html += '<button type="button" class="saint-card" data-idx="' + i + '">' +
+        '<span class="sname">' + escapeHtml(label) + '</span>' +
+        '<span style="display:flex;align-items:center;gap:10px;"><span class="stag">' + escapeHtml(s.tag) + '</span><span class="sarrow">' + (state.lang==='ur'?'←':'→') + '</span></span>' +
+      '</button>';
+    });
+    html += '</div>';
+    el('page').innerHTML = html;
+    Array.prototype.forEach.call(document.querySelectorAll('.saint-card'), function(btn){
+      btn.addEventListener('click', function(){
+        renderSaintDetail(parseInt(btn.getAttribute('data-idx'), 10), 0);
+      });
+    });
+  }
+
+  function renderSaintDetail(idx, page){
+    clearTimer();
+    var t = T();
+    var s = SAINTS[idx];
+    var sec = s.sections[page];
+    var name = state.lang==='ur' ? (s.nameUr || s.name) : s.name;
+    var secTitle = state.lang==='ur' ? sec.tUr : sec.tEn;
+    var secText = state.lang==='ur' ? sec.ur : sec.en;
+
+    var dots = s.sections.map(function(_, i){
+      return '<button type="button" class="saint-dot' + (i===page?' active':'') + '" data-page="' + i + '" aria-label="page ' + (i+1) + '"></button>';
+    }).join('');
+
+    el('page').innerHTML =
+      '<button type="button" class="btn-ghost" id="backToSaints">' + (state.lang==='ur' ? '→ فہرست پر واپس' : '← Back to list') + '</button>' +
+      '<div class="saint-detail-head" style="margin-top:14px;"><h2>' + escapeHtml(name) + '</h2><span class="stag">' + escapeHtml(s.tag) + '</span></div>' +
+      '<div class="saint-dots">' + dots + '</div>' +
+      '<div class="saint-page"><h3>' + (page+1) + ' / ' + s.sections.length + ' — ' + escapeHtml(secTitle) + '</h3><p>' + secText + '</p></div>' +
+      '<div class="saint-pagernav">' +
+        '<button type="button" class="navbtn" id="saintPrev"' + (page===0?' disabled':'') + '>' + (state.lang==='ur'?'→ پچھلا':'← Previous') + '</button>' +
+        '<button type="button" class="navbtn" id="saintNext"' + (page===s.sections.length-1?' disabled':'') + '>' + (state.lang==='ur'?'اگلا ←':'Next →') + '</button>' +
+      '</div>';
+
+    el('backToSaints').addEventListener('click', renderSaints);
+    Array.prototype.forEach.call(document.querySelectorAll('.saint-dot'), function(d){
+      d.addEventListener('click', function(){ renderSaintDetail(idx, parseInt(d.getAttribute('data-page'),10)); });
+    });
+    var prevBtn = el('saintPrev'), nextBtn = el('saintNext');
+    if(prevBtn) prevBtn.addEventListener('click', function(){ if(page>0) renderSaintDetail(idx, page-1); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ if(page<s.sections.length-1) renderSaintDetail(idx, page+1); });
+  }
+
+  applyLangChrome();
+  vfGet('vf-highlights').then(function(raw){
+    try{ if(raw) state.highlights = JSON.parse(raw); }catch(e){}
+    renderTab();
+  });
+})();
+</script>
+</body>
+</html>
